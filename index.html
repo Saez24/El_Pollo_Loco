@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <title>El Pollo Locco</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="models/world.class.js"></script>
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/status-bar.class.js"></script>
+    <script src="models/status-bar-bottleclass.js"></script>
+    <script src="models/status-bar-coins.class.js"></script>
+    <script src="models/status-bar-health.class.js"></script>
+    <script src="models/status-bar-boss-health.class.js"></script>
+    <script src="models/background.class.js"></script>
+    <script src="models/clouds.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/chick.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/sky.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/bottle.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/throwable-objects.class.js"></script>
+    <script src="models/splash.class.js"></script>
+    <script src="script/game.js"></script>
+    <script src="levels/level1-class.js"></script>
+    <script src="script/script.js" defer></script>
+    <script src="script/overlay.js"></script>
+</head>
+
+<body onload="mobileListener()">
+    <h1>EL POLLO LOCO</h1>
+    <img id="background" src="assets/img/5_background/background.png" alt="">
+    <div id="startScreen">
+        <div class="turn-device">
+            <div class="turn-text">PLEASE SWITCH TO LANDSCAPE MODE TO PLAY</div>
+            <img class="turn-img" src="assets/img/10_interaction/landscape.png" alt="">
+        </div>
+        <div id="overlay" class="overlay d-none">
+            <div class="menu">
+                <img class="menu-btn" onclick="changeMusic('music-btn')" id="music-btn"
+                    src="assets/img/10_interaction/music.png" alt="">
+                <img class="menu-btn" onclick="changeSound('sound-btn')" id="sound-btn"
+                    src="assets/img/10_interaction/speaker.png" alt="">
+            </div>
+            <div onclick="init()" class="restart">PLAY</div>
+        </div>
+        <img onclick="openMenu()" class="settings" src="assets/img/10_interaction/settings.png" alt="">
+        <div class="play" onclick="init()">
+            PLAY
+            <img id="play-btn" src="assets/img/10_interaction/play.png" alt="">
+        </div>
+        <div class="keys-start_screen">
+            <div><img class="arrow" src="assets/img/10_interaction/arrowLeft.png" /> :LEFT</div>
+            <div><img class="arrow" src="assets/img/10_interaction/arrowRight.png" /> :RIGHT</div>
+            <div><img class="arrow" src="assets/img/10_interaction/arrowUp.png" /> :JUMP</div>
+            <div>
+                <p id="letter">D</p>:THROW
+            </div>
+        </div>
+        <img id="start_screen-background" src="assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="">
+    </div>
+    <div id="screen" width="720" height="480" class="canvas d-none">
+        <div class="turn-device">
+            <div class="turn-text">PLEASE SWITCH TO LANDSCAPE MODE TO PLAY</div>
+            <img class="turn-img" src="assets/img/10_interaction/landscape.png" alt="">
+        </div>
+        <div id="game-overlay" class="d-none overlay">
+        </div>
+        <img onclick="openGameMenu()" class="settings" src="assets/img/10_interaction/settings.png" alt="">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <div class="mobile ">
+            <div id="left-hand" class="row">
+                <div class="mobile-btn" id="left">
+                    <img src="assets/img/10_interaction/arrowLeft.png" alt="">
+                </div>
+                <div class="mobile-btn" id="right">
+                    <img src="assets/img/10_interaction/arrowRight.png" alt="">
+                </div>
+            </div>
+            <div id="right-hand" class="row">
+                <div class="mobile-btn" id="jump">
+                    <img src="assets/img/10_interaction/arrowUp.png" alt="">
+                </div>
+                <div class="mobile-btn" id="throw">
+                    <img src="assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="keys">
+            <div><img src="assets/img/10_interaction/arrowLeft.png" /> :LEFT</div>
+            <div><img src="assets/img/10_interaction/arrowRight.png" /> :RIGHT</div>
+            <div><img src="assets/img/10_interaction/arrowUp.png" /> :JUMP</div>
+            <div>D:THROW</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
