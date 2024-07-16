@@ -23,8 +23,7 @@ function gameOverlay() {
         gameOver.innerHTML =/*html*/`
             <div id="winning-screen">
                 <div>CONGRATULATIONS</div>
-                <img id="trophy" src="assets/img/10_interaction/trophy.png" alt="">
-                <div id="you">YOU</div><div id="win"> WIN</div>
+                <img id="win" src="assets/img/10_interaction/trophy.png" alt="">
             </div>
             <div id="restart" onclick="restartGame()">
                 PLAY AGAIN

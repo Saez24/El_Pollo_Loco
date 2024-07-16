@@ -64,7 +64,7 @@ body {
     animation: zoomIn 1.5s ease-in-out forwards;
 }
 
-#you {
+/* #you {
     font-size: 40px;
     position: absolute;
     background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
@@ -94,9 +94,9 @@ body {
     width: fit-content;
     height: 62px;
     animation: zoomIn 1.5s 1s ease-in-out forwards;
-}
+} */
 
-#trophy {
+#win {
     height: 230px;
     transform: scale(0);
     animation: zoomIn 1.5s 2s ease-in-out forwards;
@@ -149,7 +149,6 @@ body {
 }
 
 #start_screen-background {
-    height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
     width: 100%;
@@ -221,6 +220,7 @@ span {
 .keys-start_screen {
     display: flex;
     width: 720px;
+    height: 80px;
     justify-content: space-evenly;
     align-items: center;
     background-color: #994409;
@@ -245,11 +245,22 @@ span {
 .settings {
     position: absolute;
     z-index: 4;
-    top: 5px;
-    right: 5px;
+    top: 12px;
+    right: 10px;
     height: 40px;
     width: 40px;
 }
+
+.settings-mobile {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    top: 12px;
+    right: 10px;
+    height: 40px;
+    width: 40px;
+}
+
 
 .settings:hover {
     cursor: pointer;
@@ -357,7 +368,7 @@ span {
     padding: 0;
 }
 
-#letter {
+.throw {
     color: #eb8c4d;
     font-size: 32px;
 }
@@ -468,6 +479,11 @@ span {
         width: 28px;
     }
 
+    .settings-mobile {
+        height: 28px;
+        width: 28px;
+    }
+
     .menu>img {
         height: 58px;
     }
@@ -480,7 +496,7 @@ span {
         height: 40px;
     }
 
-    #letter {
+    .throw {
         font-size: 24px;
     }
 
@@ -495,9 +511,10 @@ span {
         font-size: 25px;
     }
 
-    #you {
+
+    /* #you {
         left: 20px;
-    }
+    } */
 
     #restart {
         font-size: 18px;
@@ -508,9 +525,9 @@ span {
         width: 40%;
     }
 
-    #win {
+    /* #win {
         right: 20px;
-    }
+    } */
 }
 
 @media only screen and (max-height: 480px) {
@@ -520,6 +537,14 @@ span {
     #startScreen {
         width: 100%;
         height: 100dvh;
+    }
+
+    .settings-mobile {
+        display: block;
+    }
+
+    #start_screen-background {
+        height: 100%;
     }
 
     #game-over {
