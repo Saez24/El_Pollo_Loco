@@ -38,9 +38,9 @@
     <h1>EL POLLO LOCO</h1>
     <img id="background" src="assets/img/5_background/background.png" alt="">
     <div id="startScreen">
-        <div class="turn-device">
-            <div class="turn-text">PLEASE SWITCH TO LANDSCAPE MODE TO PLAY</div>
-            <img class="turn-img" src="assets/img/10_interaction/landscape.png" alt="">
+        <div class="rotate-device">
+            <div class="rotate-text">SWITCH TO LANDSCAPE MODE</div>
+            <img class="rotate-img" src="assets/img/10_interaction/landscape.png" alt="">
         </div>
         <div id="overlay" class="overlay d-none">
             <div class="menu">
@@ -51,43 +51,79 @@
             </div>
             <div onclick="init()" class="restart">PLAY</div>
         </div>
-        <img onclick="openMenu()" class="settings-mobile" src="assets/img/10_interaction/settings.png" alt="">
+        <svg onclick="openMenu()" class="settings-mobile" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-gear-wide-connected" viewBox="0 0 16 16">
+            <path
+                d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z" />
+        </svg>
         <div class="play" onclick="init()">
             PLAY
             <img id="play-btn" src="assets/img/10_interaction/play.png" alt="">
         </div>
-        <div class="keys-start_screen">
-            <div><img class="arrow" src="assets/img/10_interaction/arrowLeft.png" /> :LEFT</div>
-            <div><img class="arrow" src="assets/img/10_interaction/arrowRight.png" /> :RIGHT</div>
-            <div><img class="arrow" src="assets/img/10_interaction/arrowUp.png" /> :JUMP</div>
+        <div class="keys-controls_screen">
+            <div><svg xmlns="http://www.w3.org/2000/svg" width="36" height="64" fill="currentColor"
+                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                </svg>:LEFT</div>
+            <div><svg xmlns="http://www.w3.org/2000/svg" width="36" height="64" fill="currentColor"
+                    class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                </svg> :RIGHT</div>
+            <div><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                    class="bi bi-arrow-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+                </svg> :JUMP</div>
             <div>
                 <p class="throw">D</p>:THROW
             </div>
-            <div><img onclick="openMenu()" class="settings" src="assets/img/10_interaction/settings.png" alt=""></div>
+            <div><svg onclick="openMenu()" class="settings" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-gear-wide-connected" viewBox="0 0 16 16">
+                    <path
+                        d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z" />
+                </svg></div>
         </div>
         <img id="start_screen-background" src="assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="">
     </div>
     <div id="screen" width="720" height="480" class="canvas d-none">
-        <div class="turn-device">
-            <div class="turn-text">PLEASE SWITCH TO LANDSCAPE MODE TO PLAY</div>
-            <img class="turn-img" src="assets/img/10_interaction/landscape.png" alt="">
+        <div class="rotate-device">
+            <div class="rotate-text">SWITCH TO LANDSCAPE MODE</div>
+            <img class="rotate-img" src="assets/img/10_interaction/landscape.png" alt="">
         </div>
         <div id="game-overlay" class="d-none overlay">
         </div>
-        <img onclick="openGameMenu()" class="settings" src="assets/img/10_interaction/settings.png" alt="">
+        <svg onclick="openGameMenu()" class="settings" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            fill="currentColor" class="bi bi-gear-wide-connected" viewBox="0 0 16 16">
+            <path
+                d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z" />
+        </svg>
         <canvas id="canvas" width="720" height="480"></canvas>
         <div class="mobile ">
             <div id="left-hand" class="row">
                 <div class="mobile-btn" id="left">
-                    <img src="assets/img/10_interaction/arrowLeft.png" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="64" fill="currentColor"
+                        class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                    </svg>
                 </div>
                 <div class="mobile-btn" id="right">
-                    <img src="assets/img/10_interaction/arrowRight.png" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="64" fill="currentColor"
+                        class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                    </svg>
                 </div>
             </div>
             <div id="right-hand" class="row">
                 <div class="mobile-btn" id="jump">
-                    <img src="assets/img/10_interaction/arrowUp.png" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                        class="bi bi-arrow-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+                    </svg>
                 </div>
                 <div class="mobile-btn" id="throw">
                     <img src="assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png" alt="">
@@ -95,9 +131,21 @@
             </div>
         </div>
         <div class="keys">
-            <div><img src="assets/img/10_interaction/arrowLeft.png" /> :LEFT</div>
-            <div><img src="assets/img/10_interaction/arrowRight.png" /> :RIGHT</div>
-            <div><img src="assets/img/10_interaction/arrowUp.png" /> :JUMP</div>
+            <div><svg xmlns="http://www.w3.org/2000/svg" width="36" height="64" fill="currentColor"
+                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                </svg> :LEFT</div>
+            <div><svg xmlns="http://www.w3.org/2000/svg" width="36" height="64" fill="currentColor"
+                    class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                </svg> :RIGHT</div>
+            <div><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor"
+                    class="bi bi-arrow-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+                </svg> :JUMP</div>
             <div>D:THROW</div>
         </div>
     </div>

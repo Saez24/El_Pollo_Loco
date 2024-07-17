@@ -10,17 +10,7 @@
 }
 
 :root {
-    --bottom: calc(-480px / 20);
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+    --bottom: calc(-480px / 10);
 }
 
 body {
@@ -28,112 +18,33 @@ body {
     background-clip: border-box;
 }
 
-#game-over {
+#canvas {
+    position: absolute;
+    display: block;
+    width: 720px;
+    height: 480px;
+    top: 0;
+    margin: auto;
+    z-index: 3;
+    background-color: black;
+    aspect-ratio: auto 720/480;
+}
+
+.canvas {
     position: absolute;
     inset: 0;
-    font-size: 60px;
-    bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    height: 46%;
     margin: auto;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    animation: fadeIn 1.5s ease-in-out forwards;
+    z-index: 2;
+    width: 720px;
+    height: 480px;
 }
 
-#winning-screen {
-    position: absolute;
-    inset: 0;
-    font-size: 40px;
-    bottom: 180px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 46%;
-    margin: auto;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    animation: zoomIn 1.5s ease-in-out forwards;
-}
-
-/* #you {
-    font-size: 40px;
-    position: absolute;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    left: 80px;
-    transform: scale(0);
-    bottom: 0;
-    width: -moz-fit-content;
-    width: fit-content;
-    height: 62px;
-    animation: zoomIn 1.5s 0.5s ease-in-out forwards;
-}
-
-#win {
-    font-size: 40px;
-    position: absolute;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    right: 80px;
-    transform: scale(0);
-    bottom: 0;
-    width: -moz-fit-content;
-    width: fit-content;
-    height: 62px;
-    animation: zoomIn 1.5s 1s ease-in-out forwards;
-} */
-
-#win {
-    height: 230px;
-    transform: scale(0);
-    animation: zoomIn 1.5s 2s ease-in-out forwards;
-}
-
-@keyframes zoomIn {
-    0% {
-        transform: scale(0);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-#restart {
-    position: absolute;
-    bottom: 55px;
-    right: 0;
-    opacity: 0;
+#background {
+    top: 0;
     left: 0;
-    font-size: 29px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    border-radius: 12px;
-    border: 2px solid black;
-    height: 15%;
-    margin: auto;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    animation: fadeIn 1.5s 1s ease-in-out forwards;
-}
-
-#restart:hover {
-    background: linear-gradient(to top, #eb8c4d, #eec644, #eb8c4d);
-    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 #startScreen {
@@ -156,9 +67,77 @@ body {
     object-position: right;
 }
 
+.rotate-device {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    margin: auto;
+    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
+    bottom: 0;
+    z-index: 10;
+    color: green;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    opacity: 0.9;
+}
+
+.rotate-img {
+    width: 80px;
+    height: 80px;
+}
+
+.rotate-text {
+    font-size: 16px;
+    text-align: center;
+    width: 80%;
+}
+
+#game-over {
+    position: absolute;
+    inset: 0;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 46%;
+    margin: auto;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+#winning-screen {
+    position: absolute;
+    inset: 0;
+    bottom: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 46%;
+    margin: auto;
+    -webkit-text-fill-color: transparent;
+    animation: zoomIn 1.5s ease-in-out forwards;
+}
+
+#win {
+    height: 300px;
+    transform: scale(0);
+    animation: zoomIn 1.5s 2s ease-in-out forwards;
+}
+
+#lost {
+    height: 300px;
+    transform: scale(0);
+    animation: zoomIn 1.5s 2s ease-in-out forwards;
+}
+
 .play {
     position: absolute;
-    top: 80px;
+    top: 50px;
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -167,14 +146,14 @@ body {
     align-items: center;
     justify-content: space-evenly;
     border-radius: 8px;
-    background: linear-gradient(to top, #eb4d4d, #eedd44, #eb4d4d);
+    background: orange;
     width: 120px;
     gap: 8px;
     height: 40px;
 }
 
 .play:hover {
-    background: linear-gradient(to top, #eb4d4d, #eec644, #eb4d4d);
+    background: red;
     cursor: pointer;
 }
 
@@ -195,21 +174,11 @@ h1 {
     right: 0;
     text-align: center;
     margin: 0 auto;
-    font-size: 60px;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    -webkit-text-fill-color: transparent;
+    font-size: 80px;
+    background: black;
     background-clip: text;
     -webkit-background-clip: text;
     animation: fadeIn 1.5s ease-in-out forwards;
-}
-
-.canvas {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    z-index: 2;
-    width: 720px;
-    height: 480px;
 }
 
 span {
@@ -217,10 +186,10 @@ span {
     margin: 0;
 }
 
-.keys-start_screen {
+.keys-controls_screen {
     display: flex;
     width: 720px;
-    height: 80px;
+    height: 76px;
     justify-content: space-evenly;
     align-items: center;
     background-color: #994409;
@@ -239,13 +208,14 @@ span {
     position: absolute;
     bottom: var(--bottom);
     left: 0;
+    top: 480px;
     z-index: 3;
 }
 
 .settings {
     position: absolute;
     z-index: 4;
-    top: 12px;
+    top: 20px;
     right: 10px;
     height: 40px;
     width: 40px;
@@ -261,33 +231,20 @@ span {
     width: 40px;
 }
 
-
 .settings:hover {
     cursor: pointer;
 }
 
 .keys>div>img,
-.keys-start_screen>img {
+.keys-controls_screen>img {
     width: 24px;
     height: 24px;
 }
 
 .keys>div,
-.keys-start_screen>div {
+.keys-controls_screen>div {
     display: flex;
     align-items: center;
-}
-
-#canvas {
-    position: absolute;
-    display: block;
-    width: 720px;
-    height: 480px;
-    top: 0;
-    margin: auto;
-    z-index: 3;
-    background-color: black;
-    aspect-ratio: auto 720/480;
 }
 
 #left-hand {
@@ -319,6 +276,7 @@ span {
 }
 
 .mobile-btn {
+    background: linear-gradient(to top, #6fc48a, #eec644, #4debdb);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -326,19 +284,10 @@ span {
     width: 40px;
     height: 40px;
     border: 2px solid #e66c1a;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
 }
 
 .mobile-btn>img {
     height: 30px;
-}
-
-#background {
-    top: 0;
-    left: 0;
-    position: absolute;
-    height: 100%;
-    width: 100%;
 }
 
 .overlay {
@@ -356,12 +305,11 @@ span {
     padding: 2rem;
     height: 100%;
     justify-content: center;
-    gap: 1rem;
-    background-color: transparent;
+    gap: 12rem;
 }
 
 .menu-btn {
-    border-radius: 8px;
+    border-radius: 40px;
 }
 
 .menu>#full_screen-btn {
@@ -369,42 +317,38 @@ span {
 }
 
 .throw {
-    color: #eb8c4d;
+    color: black;
     font-size: 32px;
 }
 
-.turn-device {
+#restart {
     position: absolute;
-    width: 100%;
-    top: 0;
-    margin: auto;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    bottom: 0;
-    z-index: 10;
-    color: green;
-    display: none;
-    flex-direction: column;
-    align-items: center;
+    bottom: 55px;
+    right: 0;
+    opacity: 0;
+    left: 0;
+    font-size: 29px;
+    display: flex;
     justify-content: center;
-    height: 100%;
-    opacity: 0.9;
+    align-items: center;
+    width: 40%;
+    border-radius: 12px;
+    border: 2px solid black;
+    height: 15%;
+    margin: auto;
+    background: linear-gradient(to top, #94eb4d, #44eeb0, #4dabeb);
+    animation: fadeIn 1.5s 1s ease-in-out forwards;
 }
 
-.turn-img {
-    width: 80px;
-    height: 80px;
-}
-
-.turn-text {
-    font-size: 16px;
-    text-align: center;
-    width: 80%;
+#restart:hover {
+    background: linear-gradient(to top, #6fc48a, #eec644, #4debdb);
+    cursor: pointer;
 }
 
 .restart {
     position: absolute;
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
-    height: 20%;
+    background: linear-gradient(to top, #94eb4d, #44eeb0, #4dabeb);
+    height: 14%;
     width: 40%;
     display: flex;
     justify-content: center;
@@ -419,18 +363,38 @@ span {
 
 .restart:hover {
     cursor: pointer;
-    background: linear-gradient(to top, #eb4d4d, #eec644, #eb4d4d);
+    background: linear-gradient(to top, #6fc48a, #eec644, #4debdb);
 }
 
 .menu>img {
-    background: linear-gradient(to top, #eb8c4d, #eedd44, #eb8c4d);
+    background: linear-gradient(to top, #94eb4d, #44eeb0, #4dabeb);
     height: 80px;
     padding: 12px;
 }
 
 .menu>img:hover {
     cursor: pointer;
-    background: linear-gradient(to top, #eb4d4d, #eec644, #eb4d4d);
+    background: linear-gradient(to top, #6fc48a, #eec644, #4debdb);
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @media only screen and (max-width: 720px) {
@@ -461,7 +425,7 @@ span {
     }
 
     .keys,
-    .keys-start_screen {
+    .keys-controls_screen {
         display: none;
     }
 
@@ -511,11 +475,6 @@ span {
         font-size: 25px;
     }
 
-
-    /* #you {
-        left: 20px;
-    } */
-
     #restart {
         font-size: 18px;
     }
@@ -524,10 +483,6 @@ span {
         height: 13%;
         width: 40%;
     }
-
-    /* #win {
-        right: 20px;
-    } */
 }
 
 @media only screen and (max-height: 480px) {
@@ -537,6 +492,7 @@ span {
     #startScreen {
         width: 100%;
         height: 100dvh;
+        overflow-y: hidden;
     }
 
     .settings-mobile {
@@ -547,12 +503,12 @@ span {
         height: 100%;
     }
 
-    #game-over {
-        font-size: 48px;
-    }
-
     .mobile {
         display: flex;
+    }
+
+    .keys {
+        display: none;
     }
 
     #full_screen-btn {
@@ -563,7 +519,7 @@ span {
         top: 40px;
     }
 
-    .keys-start_screen {
+    .keys-controls_screen {
         display: none;
     }
 
@@ -573,7 +529,7 @@ span {
 }
 
 @media screen and (max-width: 450px) {
-    .turn-device {
+    .rotate-device {
         display: flex;
     }
 }

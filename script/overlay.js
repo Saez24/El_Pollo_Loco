@@ -10,8 +10,7 @@ function gameOverlay() {
         stopGame();
         gameOver.innerHTML =/*html*/`
             <div id="game-over">
-                <div>GAME</div>
-                <div>OVER</div>
+                <img id="lost" src="assets/img/9_intro_outro_screens/game_over/oh_no_you_lost!.png" alt="">
             </div>
             <div id="restart" onclick="restartGame()">
                 TRY AGAIN
@@ -22,8 +21,7 @@ function gameOverlay() {
         stopGame();
         gameOver.innerHTML =/*html*/`
             <div id="winning-screen">
-                <div>CONGRATULATIONS</div>
-                <img id="win" src="assets/img/10_interaction/trophy.png" alt="">
+                <img id="win" src="assets/img/9_intro_outro_screens/win/win_2.png" alt="">
             </div>
             <div id="restart" onclick="restartGame()">
                 PLAY AGAIN
