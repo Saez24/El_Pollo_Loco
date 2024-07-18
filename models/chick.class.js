@@ -3,6 +3,7 @@ class Chick extends Chicken {
     default_positionY = 415;
     speed = Math.round(Math.random() * 3) + 1;
     speedY = 0;
+    chicken_hit = new Audio("assets/audio/chick_hit.mp3");
     IMAGES_WALKING = [
         "assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
         "assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -14,8 +15,6 @@ class Chick extends Chicken {
         "assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png",
     ];
 
-    chicken_hit = new Audio("assets/audio/chick_hit.mp3");
-
     constructor(i) {
         super(i)
         this.loadImage("assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
@@ -25,9 +24,8 @@ class Chick extends Chicken {
         this.width = 25;
         this.y = 415;
         this.applyGravity()
-        this.jumping()
-    }
-
+        this.jump()
+    };
 
     /**
      * Executes the jumping action.
@@ -35,10 +33,11 @@ class Chick extends Chicken {
      * @param {type} paramName - description of parameter
      * @return {type} description of return value
      */
-    jumping() {
-        interval.call(this, this.jumpingInterval, Math.round(Math.random() * 2000) + 800)
+    jump() {
+        setInterval(() => {
+            this.jumpInterval(), Math.round(Math.random() * 1800)
+        }, + 600);
     };
-
 
     /**
      * Initializes the jumping interval.
@@ -46,10 +45,9 @@ class Chick extends Chicken {
      * @param {type} paramName - description of parameter
      * @return {type} description of return value
      */
-    jumpingInterval() {
-        this.speedY = Math.round(Math.random() * 5);
+    jumpInterval() {
+        this.speedY = Math.round(Math.random() * 4);
     };
-
 
     /**
      * Resets the position and animation of the chicken enemy.
@@ -57,7 +55,7 @@ class Chick extends Chicken {
      * @param {type} paramName - description of parameter
      * @return {type} description of return value
      */
-    getsStompedOn() {
+    chickDead() {
         clearInterval(this.animation_interval);
         this.offset.width = 0;
         this.offset.height = 0;
@@ -65,4 +63,4 @@ class Chick extends Chicken {
         if (sound == true) this.chicken_hit.play();
         this.loadImage("assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png");
     };
-}
+};

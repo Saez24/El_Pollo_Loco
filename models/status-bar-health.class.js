@@ -18,4 +18,4 @@ class StatusBarHealth extends Statusbar {
         this.y = 0;
         this.setPercentage(100);
     };
-}
+};

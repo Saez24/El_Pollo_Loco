@@ -1,23 +1,8 @@
 class Coin extends MovableObject {
-    IMAGE_SPINNING = [
-        "assets/img/8_coin/paint/test0.png",
-        "assets/img/8_coin/paint/test2.png",
-        "assets/img/8_coin/paint/test3.png",
-        "assets/img/8_coin/paint/test4.png",
-        "assets/img/8_coin/paint/test6.png",
-        "assets/img/8_coin/paint/test7.png",
-        "assets/img/8_coin/paint/test8.png",
-        "assets/img/8_coin/paint/test9.png",
-        "assets/img/8_coin/paint/test10.png",
-        "assets/img/8_coin/paint/test9.png",
-        "assets/img/8_coin/paint/test8.png",
-        "assets/img/8_coin/paint/test7.png",
-        "assets/img/8_coin/paint/test6.png",
-        "assets/img/8_coin/paint/test4.png",
-        "assets/img/8_coin/paint/test3.png",
-        "assets/img/8_coin/paint/test2.png",
+    IMAGE_COIN = [
+        "assets/img/8_coin/coin_1.png",
+        "assets/img/8_coin/coin_2.png"
     ];
-
 
     /**
      * Creates a new instance of the `Constructor` class.
@@ -28,13 +13,12 @@ class Coin extends MovableObject {
      */
     constructor(position_x, position_y) {
         super(position_x, position_y);
-        this.loadImage("assets/img/8_coin/paint/test0.png");
+        this.loadImage("assets/img/8_coin/coin_1.png");
         this.width = 100;
         this.height = 100;
-        this.loadImages(this.IMAGE_SPINNING);
+        this.loadImages(this.IMAGE_COIN);
         this.spin()
     };
-
 
     offset = {
         width: 35,
@@ -43,7 +27,6 @@ class Coin extends MovableObject {
         y: this.y + 28
     };
 
-
     /**
      * Spins the function.
      *
@@ -51,9 +34,10 @@ class Coin extends MovableObject {
      * @return {type} description of return value
      */
     spin() {
-        interval.call(this, this.spinning, 100)
+        setInterval(() => {
+            this.spinning();
+        }, 400);
     };
-
 
     /**
      * Executes the spinning animation.
@@ -62,6 +46,6 @@ class Coin extends MovableObject {
      * @return {type} description of return value
      */
     spinning() {
-        this.playAnimation(this.IMAGE_SPINNING);
+        this.playAnimation(this.IMAGE_COIN);
     };
-}
+};

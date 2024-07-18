@@ -14,27 +14,31 @@ let music = true;
 let fullscreen = false;
 let mobileControlIds = ["left", "right", "jump", "throw"];
 
-
 /**
  * Initializes the canvas and sets up the world object.
-*
-* @return {void} This function does not return anything.
-*/
+ *
+ * @return {void} This function does not return anything.
+ */
 function init() {
     hideStartScreen();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    pushExtraIntervals();
+    addEnemyAnimationIntervals();
 };
 
+/**
+ * Adds animation intervals of all enemies in the world to the intervalIds array.
+ */
+function addEnemyAnimationIntervals() {
+    world.level.enemies.forEach((enemy) => {
+        intervalIds.push(enemy.animation_interval);
+    });
+};
 
 /**
- * Adds a keydown event listener to the window and updates the keyboard object based on the pressed keys.
- *
- * @param {Event} event - The keydown event object.
- * @return {void} This function does not return a value.
+ * Initializes keydown event listener to update keyboard state based on pressed keys.
  */
-function addKeyDown() {
+function initializeKeyDownListener() {
     window.addEventListener("keydown", (event) => {
         switch (event.code) {
             case "ArrowLeft":
@@ -51,28 +55,17 @@ function addKeyDown() {
             case "ArrowDown":
                 keyboard.KEY_DOWN = true;
                 break;
-            case "Space":
-                keyboard.KEY_SPACE = true;
-                break;
-            case "Shift":
-                keyboard.KEY_THROW = true;
-                break;
             case "KeyD":
                 keyboard.KEY_THROW = true;
                 break;
-        };
-    })
+        }
+    });
 };
 
-
 /**
- * Adds an event listener for the "keyup" event on the window object.
- * When a key is released, it updates the corresponding property in the "keyboard" object.
- *
- * @param {Event} event - The keyup event object.
- * @return {undefined} This function does not return a value.
+ * Initializes keyup event listener to update keyboard state when keys are released.
  */
-function addKeyUp() {
+function initializeKeyUpListener() {
     window.addEventListener("keyup", (event) => {
         switch (event.code) {
             case "ArrowLeft":
@@ -87,19 +80,12 @@ function addKeyUp() {
             case "ArrowDown":
                 keyboard.KEY_DOWN = false;
                 break;
-            case "Space":
-                keyboard.KEY_SPACE = false;
-                break;
-            case "Shift":
-                keyboard.KEY_THROW = false;
-                break;
             case "KeyD":
                 keyboard.KEY_THROW = false;
                 break;
-        };
+        }
     });
 };
-
 
 /**
  * Executes the necessary actions for mobile interaction.
@@ -108,94 +94,62 @@ function addKeyUp() {
  * @return {type} description of return value
  */
 function mobileListener() {
-    addKeyDown();
-    addKeyUp();
-    pressMobileBtn();
-    releaseMobileBtn();
-}
-
+    initializeKeyDownListener();
+    initializeKeyUpListener();
+    initializeMobileControlListeners();
+    releaseMobileControl();
+};
 
 /**
- * Listens for touch events on mobile devices and updates the keyboard state accordingly.
- *
- * @param {none} 
- * @return {none}
+ * Initializes touch event listeners for mobile controls to update keyboard state.
  */
-function pressMobileBtn() {
+function initializeMobileControlListeners() {
     mobileControlIds.forEach((id) => {
         document.getElementById(id).addEventListener("touchstart", (event) => {
-            if (id == "left") {
-                keyboard.KEY_LEFT = true;
-                event.preventDefault()
+            switch (id) {
+                case "left":
+                    keyboard.KEY_LEFT = true;
+                    break;
+                case "right":
+                    keyboard.KEY_RIGHT = true;
+                    break;
+                case "jump":
+                    keyboard.KEY_UP = true;
+                    break;
+                case "throw":
+                    keyboard.KEY_THROW = true;
+                    break;
             }
-            if (id == "right") {
-                keyboard.KEY_RIGHT = true;
-                event.preventDefault()
-            }
-            if (id == "jump") {
-                keyboard.KEY_UP = true;
-                event.preventDefault()
-            }
-            if (id == "throw") {
-                keyboard.KEY_THROW = true;
-                event.preventDefault()
-            }
-        })
-    })
+            event.preventDefault();
+        });
+    });
 };
 
-
 /**
- * Releases the mobile button when touchend event is triggered.
+ * Releases mobile button states when touchend event is triggered.
  *
  * @param {string} id - The id of the button.
- * @return {void} 
  */
-function releaseMobileBtn() {
+function releaseMobileControl(id) {
     mobileControlIds.forEach((id) => {
         document.getElementById(id).addEventListener("touchend", (event) => {
-            if (id == "left") {
-                keyboard.KEY_LEFT = false;
-                event.preventDefault()
+            switch (id) {
+                case "left":
+                    keyboard.KEY_LEFT = false;
+                    break;
+                case "right":
+                    keyboard.KEY_RIGHT = false;
+                    break;
+                case "jump":
+                    keyboard.KEY_UP = false;
+                    break;
+                case "throw":
+                    keyboard.KEY_THROW = false;
+                    break;
             }
-            if (id == "right") {
-                keyboard.KEY_RIGHT = false;
-                event.preventDefault()
-            }
-            if (id == "jump") {
-                keyboard.KEY_UP = false;
-                event.preventDefault()
-            }
-            if (id == "throw") {
-                keyboard.KEY_THROW = false;
-                event.preventDefault()
-            }
-        })
-    })
-};
-
-
-/**
- * Executes the given function at regular intervals.
- *
- * @param {function} func - The function to be executed.
- * @param {number} time - The time interval in milliseconds.
- */
-function interval(func, time) {
-    let boundFunc = func.bind(this);
-    let intervalId = setInterval(boundFunc, time);
-    intervalIds.push(intervalId);
-};
-
-
-/**
- * Pushes the animation intervals of all enemies in the world to the intervalIds array.
- *
- * @param {type} paramName - description of parameter
- * @return {type} description of return value
- */
-function pushExtraIntervals() {
-    world.level.enemies.forEach((e) => { intervalIds.push(e.animation_interval) })
+            event.preventDefault();
+        });
+    });
 };
 
 /**
@@ -211,7 +165,7 @@ function stopGame() {
     characterAlive = true;
     bossAlive = true;
     gameStopped = true;
-}
+};
 
 /**
  * Restarts the game.
@@ -225,7 +179,6 @@ function restartGame() {
     init();
     gameStopped = false;
 };
-
 
 /**
  * Clears the world by setting the level1 and world variables to null.

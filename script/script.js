@@ -18,7 +18,6 @@ function hideStartScreen() {
     }
 };
 
-
 /**
  * Opens the menu by removing the 'd-none' class from the 'overlay' element.
  *
@@ -27,7 +26,6 @@ function hideStartScreen() {
 function openMenu() {
     document.getElementById('overlay').classList.remove('d-none');
 };
-
 
 /**
  * Opens the game menu by removing the 'd-none' class from the 'game-overlay' element.
@@ -40,7 +38,6 @@ function openGameMenu() {
     stopGame();
 };
 
-
 /**
  * Checks the state of the sound and music buttons and updates their images accordingly.
  *
@@ -50,12 +47,11 @@ function openGameMenu() {
 function checkButtons() {
     let soundBtn = document.getElementById('game-sound-btn');
     let musicBtn = document.getElementById('game-music-btn');
-    if (sound == true) { sound.src = "assets/img/10_interaction/speaker.png"; }
-    else { soundBtn.src = "assets/img/10_interaction/mute.png"; }
-    if (music == true) { music.src = "assets/img/10_interaction/music.png"; }
-    else { musicBtn.src = "assets/img/10_interaction/noMusic.png"; };
+    if (sound == true) { sound.src = "assets/img/10_icons/speaker.png"; }
+    else { soundBtn.src = "assets/img/10_icons/mute.png"; }
+    if (music == true) { music.src = "assets/img/10_icons/music.png"; }
+    else { musicBtn.src = "assets/img/10_icons/noMusic.png"; };
 };
-
 
 /**
  * Closes the game menu by adding the 'd-none' class to the 'game-overlay' element.
@@ -67,7 +63,6 @@ function closeGameMenu() {
     document.getElementById('game-overlay').classList.add('d-none');
 };
 
-
 /**
  * Change the sound of a button based on its current state.
  *
@@ -78,13 +73,12 @@ function changeSound(id) {
     let btn = document.getElementById(id);
     if (btn.src.slice(-11) == "speaker.png") {
         sound = false;
-        btn.src = "assets/img/10_interaction/mute.png";
+        btn.src = "assets/img/10_icons/mute.png";
     } else {
         sound = true;
-        btn.src = "assets/img/10_interaction/speaker.png";
+        btn.src = "assets/img/10_icons/speaker.png";
     }
 };
-
 
 /**
  * A function to change the music based on the ID of the button clicked.
@@ -102,13 +96,12 @@ function changeMusic(id) {
         chicken_walk.currentTime = 0;
         chicken_walk.loop = false;
         music = false;
-        btn.src = "assets/img/10_interaction/noMusic.png";
+        btn.src = "assets/img/10_icons/noMusic.png";
     } else {
         music = true;
-        btn.src = "assets/img/10_interaction/music.png";
+        btn.src = "assets/img/10_icons/music.png";
     }
 };
-
 
 /**
  * Toggles the full screen mode for the canvas.
@@ -128,7 +121,6 @@ function fullScreen() {
     }
 };
 
-
 /**
  * Exits fullscreen mode for the container.
  *
@@ -138,7 +130,6 @@ function fullScreen() {
 function normalScreen() {
     exitFullscreen(container);
 };
-
 
 /**
  * Enters fullscreen mode for the specified element.
@@ -157,7 +148,6 @@ function enterFullscreen(element) {
     }
 };
 
-
 /**
  * Exits fullscreen mode.
  *
@@ -174,4 +164,3 @@ function exitFullscreen() {
         document.msExitFullscreen();
     }
 };
-

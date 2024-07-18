@@ -17,4 +17,4 @@ class StatusBarCoins extends Statusbar {
         this.y = 84;
         this.setPercentage(100);
     };
-}
+};

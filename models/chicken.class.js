@@ -1,6 +1,7 @@
 class Chicken extends MovableObject {
     animation_interval;
     offsetY;
+    chicken_hit = new Audio("assets/audio/chicken_hit.mp3");
     IMAGES_WALKING = [
         "assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
         "assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
@@ -11,8 +12,6 @@ class Chicken extends MovableObject {
         "assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png",
         "assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png"
     ];
-
-    chicken_hit = new Audio("assets/audio/chicken_hit.mp3");
 
     constructor(i) {
         super();
@@ -25,8 +24,7 @@ class Chicken extends MovableObject {
         this.speed = 0.5 + Math.random() * 1.5;
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
-    }
-
+    };
 
     /**
      * Animates the object by continuously moving it to the left, playing a walking animation,
@@ -40,13 +38,12 @@ class Chicken extends MovableObject {
             this.moveLeft();
             this.playAnimation(this.IMAGES_WALKING);
             if (this instanceof Chick) {
-                this.littleChickOffset();
+                this.chickOffset();
             } else {
                 this.chickenOffset()
             }
         }, 1000 / 15);
     };
-
 
     /**
      * Generates the function comment for the given function body.
@@ -62,14 +59,13 @@ class Chicken extends MovableObject {
         };
     };
 
-
     /**
      * Generates the function comment for the given function body.
      *
      * @param {} - no parameters
      * @return {} - no return value
      */
-    littleChickOffset() {
+    chickOffset() {
         this.offset = {
             width: 25,
             height: 50,
@@ -78,11 +74,10 @@ class Chicken extends MovableObject {
         };
     };
 
-
     /**
      * Clears the animation interval, resets the offset values, plays a sound if enabled, and loads a new image.
      */
-    getsPlucked() {
+    chickenDead() {
         clearInterval(this.animation_interval);
         this.animation_interval = null;
         this.offset.width = 0;
@@ -91,4 +86,4 @@ class Chicken extends MovableObject {
         if (sound == true) this.chicken_hit.play();
         this.loadImage("assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png");
     };
-}
+};

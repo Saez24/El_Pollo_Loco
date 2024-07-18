@@ -7,7 +7,6 @@ class MovableObject extends DrawableObject {
     gravityId;
     lastHit;
 
-
     /**
      * Initializes a new instance of the constructor.
      *
@@ -24,16 +23,16 @@ class MovableObject extends DrawableObject {
         this.default_positionY = this.y;
     };
 
-
     /**
      * Animate the element.
      *
      * @return {undefined} No return value.
      */
     animate() {
-        interval.call(this, this.moveLeft, 1000 / 60)
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
     };
-
 
     /**
      * Plays an animation using the provided image array.
@@ -47,7 +46,6 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     };
 
-
     /**
      * Moves the object to the right.
      *
@@ -60,7 +58,6 @@ class MovableObject extends DrawableObject {
         this.world.keyboard.KEY_LEFT = false;
     };
 
-
     /**
      * Moves the object to the left by decreasing its x-coordinate by the current speed.
      *
@@ -70,7 +67,6 @@ class MovableObject extends DrawableObject {
     moveLeft() {
         this.x -= this.speed;
     };
-
 
     /**
      * Apply gravity to the object.
@@ -83,7 +79,9 @@ class MovableObject extends DrawableObject {
      * @return {type} description of return value
      */
     applyGravity() {
-        this.gravityId = interval.call(this, this.gravityInterval, 1000 / 60)
+        this.gravityId = setInterval(() => {
+            this.gravityInterval();
+        }, 1000 / 60);
     };
 
     /**
@@ -109,7 +107,6 @@ class MovableObject extends DrawableObject {
         }
     };
 
-
     /**
      * Decreases the y-coordinate of the object based on its speed and acceleration.
      *
@@ -121,7 +118,6 @@ class MovableObject extends DrawableObject {
         this.speedY -= this.accelearion;
     };
 
-
     /**
      * Stops the falling motion of the object.
      *
@@ -132,7 +128,6 @@ class MovableObject extends DrawableObject {
         this.speedY = 0;
     };
 
-
     /**
      * Check if the object is above the ground.
      *
@@ -142,7 +137,6 @@ class MovableObject extends DrawableObject {
     isAboveGround(default_positionY) {
         return this.y <= default_positionY;
     };
-
 
     /**
      * Checks if this object is colliding with another object.
@@ -159,14 +153,13 @@ class MovableObject extends DrawableObject {
         );
     };
 
-
     /**
      * Checks if the object is being jumped upon.
      *
      * @param {Object} obj - The object to check against.
      * @return {boolean} Returns true if the object is being jumped upon, false otherwise.
      */
-    isJumpingUpon(obj) {
+    jumpingUpon(obj) {
         return (
             this.speedY <= 0
             && this.offset.y + this.offset.height > obj.offset.y
@@ -174,7 +167,6 @@ class MovableObject extends DrawableObject {
             && this.offset.x < obj.offset.x + obj.offset.width
         )
     };
-
 
     /**
      * Checks if the entity is hit.
@@ -187,7 +179,7 @@ class MovableObject extends DrawableObject {
         } else if (!this.gotHurt) {
             this.health_percentage = this.energy -= 20;
             this.gotHurt = true;
-            this.dmgAnimation();
+            this.triggerDamageResponse();
             if (this instanceof Character) {
                 this.refreshIdleTimer();
             }
@@ -196,7 +188,6 @@ class MovableObject extends DrawableObject {
             }
         }
     };
-
 
     /**
      * Stops the specified music.
@@ -210,7 +201,6 @@ class MovableObject extends DrawableObject {
         music.loop = false;
     };
 
-
     /**
      * Determines if the object is dead.
      *
@@ -222,38 +212,36 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Triggers the damage animation if the object is not dead.
+     * Triggers the damage response animation if the object is not dead.
      *
-     * @return {void} 
+     * @return {void}
      */
-    dmgAnimation() {
+    triggerDamageResponse() {
         if (!this.isDead()) {
             this.lastHit = new Date().getTime();
-            this.startDmgAnimation();
+            this.initiateDamageAnimation();
         }
     };
 
-
     /**
-     * Starts the damage animation.
+     * Initiates the damage response animation.
      *
      * @return {void} There is no return value.
      */
-    startDmgAnimation() {
+    initiateDamageAnimation() {
         this.hurt_interval = setInterval(() => {
             this.refreshHealthbar();
-            if (this.timepassed(this.lastHit)) {
-                this.readyToTakeDamage();
+            if (this.passedTime(this.lastHit)) {
+                this.resetHurtState();
                 if (this instanceof Endboss) {
                     if (this.energy == 160) this.attack();
                     else if (this.energy == 99) this.attack();
                     else if (this.energy == 38) this.attack();
-                    else { this.watchMadAtCharacter() };
+                    else { this.monitorAngryCharacter() };
                 }
             }
         }, 1000 / 25);
     };
-
 
     /**
      * Refreshes the healthbar.
@@ -266,17 +254,15 @@ class MovableObject extends DrawableObject {
         this.healthBar.setPercentage(this.health_percentage);
     };
 
-
     /**
      * Stops the object from taking damage and resets the hurt state.
      *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     * @return {void} 
      */
-    readyToTakeDamage() {
+    resetHurtState() {
         clearInterval(this.hurt_interval);
         this.gotHurt = false;
-    };
+    }
 
 
     /**
@@ -292,16 +278,15 @@ class MovableObject extends DrawableObject {
 
     };
 
-
     /**
      * Calculates the time passed since the given time in milliseconds.
      *
      * @param {number} time - The starting time in milliseconds.
      * @return {boolean} True if the time passed is greater than 1.5 seconds, false otherwise.
      */
-    timepassed(time) {
-        let timepassed = new Date().getTime() - time;
-        timepassed = timepassed / 1000;
-        return (timepassed > 1.5)
+    passedTime(time) {
+        let passedTime = new Date().getTime() - time;
+        passedTime = passedTime / 1000;
+        return (passedTime > 1.5)
     };
-}
+};

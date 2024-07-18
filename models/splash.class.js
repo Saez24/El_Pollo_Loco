@@ -26,14 +26,19 @@ class Splash extends MovableObject {
     };
 
 
+    /**
+     * Plays the splash animation and sets the object to a fading out state when the animation ends.
+     *
+     * @return {void}
+     */
     splash() {
         let splash_interval = setInterval(() => {
             this.playAnimation(this.IMAGES_SPLASH);
             if (this.currentImage == this.IMAGES_SPLASH.length - 1) {
                 clearInterval(splash_interval);
                 splash_interval = null;
-                this.isFadingOut = true
+                this.isFadingOut = true;
             }
         }, 1000 / 30);
     };
-}
+};

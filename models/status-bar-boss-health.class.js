@@ -19,4 +19,4 @@ class BossHealth extends Statusbar {
         this.y = -40;
         this.setPercentage(100);
     };
-}
+};

@@ -16,7 +16,7 @@ class World {
         new StatusBarBottle(),
         new StatusBarCoins()
     ];
-    bossBar = new BossHealth(2800);
+    bossHealthBar = new BossHealth(2800);
     endBoss = new Endboss();
     coin_sound = new Audio("assets/audio/collect_coin.mp3");
     bottle_sound = new Audio("assets/audio/bottle_put.mp3");
@@ -35,18 +35,16 @@ class World {
 
     };
 
-
     setWorld() {
         this.character.world = this;
         this.character.healthBar = this.characterBars[0];
         this.endBoss.world = this;
-        this.endBoss.healthBar = this.bossBar;
+        this.endBoss.healthBar = this.bossHealthBar;
     };
 
-
     draw() {
-        this.resetSurvingEnemies();
-        this.prepareCanvas();
+        this.resetSurvivingEntities();
+        this.initializeCanvas();
         this.addBackgroundsAndCollectables();
         this.addBarsToCanvas();
         this.characterFadeOut();
@@ -60,7 +58,6 @@ class World {
 
     };
 
-
     /**
      * Prepares the canvas for drawing by clearing it, translating the camera,
      * and setting the global alpha.
@@ -68,12 +65,11 @@ class World {
      * @param {type} paramName - description of parameter
      * @return {type} description of return value
      */
-    prepareCanvas() {
+    initializeCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);//verschiebt die kamera
+        this.ctx.translate(this.camera_x, 0);
         this.ctx.globalAlpha = this.globalAlpha;
     };
-
 
     /**
      * Adds backgrounds and collectables to the map array.
@@ -81,18 +77,15 @@ class World {
      * This function takes the background objects, clouds, coins, and bottles
      * from the level object and adds them to the map array.
      *
-     * @param {type} level - The level object containing the background objects,
-     *                       clouds, coins, and bottles.
+     * @return {void}
      */
     addBackgroundsAndCollectables() {
-        this.addToMapArr(this.level.backgroundObjects);
-        this.addToMapArr(this.level.clouds);
-        if (this.level.coins.length > 0) {
-            this.addToMapArr(this.level.coins);
-        };
-        this.addToMapArr(this.level.bottles);
+        const { backgroundObjects, clouds, coins, bottles } = this.level;
+        this.addToMapArray(backgroundObjects);
+        this.addToMapArray(clouds);
+        this.addToMapArray(coins);
+        this.addToMapArray(bottles);
     };
-
 
     /**
      * Adds bars to the canvas.
@@ -101,27 +94,23 @@ class World {
      * @return {type} description of return value
      */
     addBarsToCanvas() {
-        this.addToMapArr(this.characterBars);
-        this.addToMap(this.bossBar);
+        this.addToMapArray(this.characterBars);
+        this.addToMap(this.bossHealthBar);
     };
-
 
     /**
      * Fades out the character on the canvas.
-     *
-     * @return {undefined} This function does not return a value.
      */
     characterFadeOut() {
         if (this.character.isFadingOut) {
-            this.ctx.globalAlpha = this.fadingAlpha - this.alphaDecrease;
-            this.fadingAlpha -= this.alphaDecrease;
+            this.ctx.globalAlpha -= this.alphaDecrease;
             this.addToMap(this.character);
         } else {
             this.addToMap(this.character);
-        };
+        }
+
         this.ctx.globalAlpha = 1;
     };
-
 
     /**
      * Draws the enemies on the map.
@@ -130,10 +119,9 @@ class World {
      * @return {type} - No return value.
      */
     drawEnemies() {
-        this.addToMapArr(this.level.enemies);
+        this.addToMapArray(this.level.enemies);
         this.addToMap(this.endBoss);
     };
-
 
     /**
      * Draws the splashes on the canvas.
@@ -154,7 +142,6 @@ class World {
         };
     };
 
-
     /**
      * Checks if the global alpha value is nearly gone.
      *
@@ -163,7 +150,6 @@ class World {
     splashesNearlyGone() {
         return (this.ctx.globalAlpha <= 0.02)
     };
-
 
     /**
      * Remove the first element from the splashes array, set the global alpha to 1,
@@ -174,8 +160,7 @@ class World {
     removeSplash() {
         return this.splashes.splice(this.splashes[0], 1),
             this.ctx.globalAlpha = 1, this.fadingAlpha = 1;
-    }
-
+    };
 
     /**
      * Updates the fading alpha value and adds the specified element to the map.
@@ -187,7 +172,6 @@ class World {
         this.addToMap(element);
         this.ctx.globalAlpha = 1;
     };
-
 
     /**
      * Draws a rotating bottle on the canvas.
@@ -204,18 +188,16 @@ class World {
         this.ctx.restore();
     };
 
-
     /**
      * Add multiple objects to the map array.
      *
      * @param {Array} objs - An array of objects to be added to the map array.
      */
-    addToMapArr(objs) {
+    addToMapArray(objs) {
         objs.forEach((obj) => {
             this.addToMap(obj);
         });
     };
-
 
     /**
      * A function that adds a MovableObject to the map.
@@ -233,7 +215,6 @@ class World {
         };
     };
 
-
     /**
      * Flips the image horizontally.
      *
@@ -247,7 +228,6 @@ class World {
         MovableObject.offset.x = 60 + MovableObject.offset.x * -1;
     };
 
-
     /**
      * Flips the image back to its original position.
      *
@@ -260,25 +240,20 @@ class World {
         this.ctx.restore();
     };
 
-
     /**
      * Rotates an image around a movable object.
      *
-     * @param {MovableObject} MovableObject - The movable object around which the image will be rotated.
+     * @param {MovableObject} movableObject - The movable object around which the image will be rotated.
      */
-    rotateImage(MovableObject) {
-        this.ctx.save();
-        this.ctx.translate(
-            MovableObject.width / 2 + MovableObject.x,
-            MovableObject.height / 2 + MovableObject.y
-        );
-        this.ctx.rotate(MovableObject.rotation);
-        this.ctx.translate(
-            -MovableObject.width / 2 - MovableObject.x,
-            -MovableObject.height / 2 - MovableObject.y
-        );
-    };
+    rotateImage(movableObject) {
+        const { ctx } = this;
+        const { x, y, width, height, rotation } = movableObject;
 
+        ctx.save();
+        ctx.translate(x + width / 2, y + height / 2);
+        ctx.rotate(rotation);
+        ctx.translate(-(x + width / 2), -(y + height / 2));
+    };
 
     /**
      * Checks for collisions between different game objects.
@@ -291,7 +266,6 @@ class World {
         this.endBossCollision();
     };
 
-
     /**
      * Handles the collision between the player and coins.
      * Calls the 'takeCoins' function every 10 milliseconds.
@@ -300,9 +274,10 @@ class World {
      * @return {type} undefined
      */
     coinCollision() {
-        interval.call(this, this.takeCoins, 10)
+        setInterval(() => {
+            this.takeCoins();
+        }, 10);
     };
-
 
     /**
      * Takes the coins collected by the character.
@@ -322,19 +297,26 @@ class World {
         })
     };
 
-
     /**
-     * Removes a coin element from the canvas and updates the character's coin collection.
+     * Handles the collection of a coin element.
      *
      * @param {Object} element - The coin element to be handled.
      */
     handleCoinCollection(element) {
         this.ctx.clearRect(element.x, element.y, element.width, element.height);
-        this.level.coins.splice(this.level.coins.indexOf(element), 1);
-        this.characterBars[2].percentage -= 10;
-        this.characterBars[2].setPercentage(this.characterBars[2].percentage)
+        this.level.coins = this.level.coins.filter(coin => coin !== element);
+        this.updateCharacterCoinBar(-10);
     };
 
+    /**
+     * Updates the character's coin bar percentage.
+     *
+     * @param {number} amount - The amount to adjust the coin bar percentage.
+     */
+    updateCharacterCoinBar(amount) {
+        this.characterBars[2].percentage += amount;
+        this.characterBars[2].setPercentage(this.characterBars[2].percentage);
+    };
 
     /**
      * Checks bottle-collection at regular intervals.
@@ -343,29 +325,26 @@ class World {
      * @return {type} description of return value
      */
     bottleCollection() {
-        interval.call(this, this.collectBottles, 10)
+        setInterval(() => {
+            this.collectBottles();
+        }, 10);
     };
-
 
     /**
-     * Collects bottles based on collision detection with the character and the number of throwable objects available.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     * Collects bottles if the character collides with them and there are fewer than 5 throwable objects available.
      */
     collectBottles() {
-        this.level.bottles.forEach((bottle) => {
+        this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle) && this.throwableObjects.length < 5) {
                 this.ctx.clearRect(bottle.x, bottle.y, bottle.width, bottle.height);
-                if (sound == true) this.bottle_sound.play();
-                this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+                if (sound) this.bottle_sound.play(); // Assuming `sound` is a boolean flag
+                this.level.bottles.splice(index, 1);
                 this.throwableObjects.push(new ThrowableObject());
                 this.characterBars[1].percentage -= 20;
-                this.characterBars[1].setPercentage(this.characterBars[1].percentage)
+                this.characterBars[1].setPercentage(this.characterBars[1].percentage);
             }
-        })
+        });
     };
-
 
     /**
      * Sets the interval for bottle-enemy collision.
@@ -374,9 +353,10 @@ class World {
      * @return {type} description of return value
      */
     bottleEnemyCollision() {
-        interval.call(this, this.bottleCollides, 10)
+        setInterval(() => {
+            this.bottleCollides();
+        }, 10);
     };
-
 
     /**
      * Checks if the bottle collides with specific objects in the level.
@@ -392,7 +372,6 @@ class World {
         }
     };
 
-
     /**
      * Handles the event when the chicken is hit by a bottle.
      *
@@ -402,8 +381,7 @@ class World {
     handleChickenHit(bottle, enemy) {
         this.bottleBreak(bottle);
         this.chickenDies(enemy);
-    }
-
+    };
 
     /**
      * Handles the boss hit by breaking the bottle,
@@ -416,8 +394,7 @@ class World {
         this.bottleBreak(bottle);
         this.endBoss.isHit();
         if (sound == true) this.bossHit_sound.play();
-    }
-
+    };
 
     /**
      * The inteval for checking the collision between the character and the boss.
@@ -426,9 +403,10 @@ class World {
      * @return {type} description of return value
      */
     endBossCollision() {
-        interval.call(this, this.characterBossInteraction, 10)
+        setInterval(() => {
+            this.characterBossInteraction();
+        }, 10);
     };
-
 
     /**
      * Executes the interaction between the character and the boss.
@@ -447,7 +425,6 @@ class World {
         };
     };
 
-
     /**
      * Checks if the boss went past the character.
      *
@@ -457,58 +434,52 @@ class World {
         return (this.endBoss.offset.x + this.endBoss.offset.width < this.character.x);
     };
 
-
     /**
-     * Handles collision between the character and enemy objects.
+     * Handles collision between the character and enemy objects at regular intervals.
      *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     * @return {void}
      */
     enemyCollision() {
-        interval.call(this, this.characterEnemyInteraction, 10)
+        setInterval(() => {
+            this.handleCharacterEnemyInteractions();
+        }, 10);
     };
 
-
     /**
-     * Performs interactions between the character and enemies.
-     * This function checks if the character is jumping and if it is jumping upon an enemy.
-     * If the enemy is a chicken, it checks if it is a chick or not.
-     * If it is a chick, it calls the 'littleChickDies' function.
-     * If it is not a chick, it calls the 'chickenDies' function and updates some character properties.
-     * If the character is not jumping but is colliding with an enemy, it calls the 'isHit' function.
+     * Handles interactions between the character and enemies.
+     * Checks if the character is jumping on an enemy or colliding with an enemy.
+     * If the character is jumping on a chicken, it handles the chicken's response.
+     * If the character is colliding with an enemy, it calls the 'isHit' function.
      *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     * @return {void}
      */
-    characterEnemyInteraction() {
+    handleCharacterEnemyInteractions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isJumping) {
-                if (this.character.isJumpingUpon(enemy) && enemy instanceof Chicken) this.differChickenSize(enemy);
+            if (this.character.isJumping && this.character.jumpingUpon(enemy) && enemy instanceof Chicken) {
+                this.handleChickenInteraction(enemy);
             } else if (this.character.isColliding(enemy)) {
                 this.character.isHit();
                 if (sound) this.hit_sound.play();
-            };
-        })
+            }
+        });
     };
 
-
     /**
-     * Differ the size of the chicken based on the enemy type.
+     * Handles the interaction with a chicken, determining if it's a chick or a regular chicken.
      *
-     * @param {object} enemy - The enemy object to compare with.
-     * @return {void} The function does not return any value.
+     * @param {object} enemy - The enemy object to interact with.
+     * @return {void}
      */
-    differChickenSize(enemy) {
+    handleChickenInteraction(enemy) {
         if (enemy instanceof Chick) {
-            this.chickDies(enemy)
+            this.chickDies(enemy);
         } else {
             this.chickenDies(enemy);
             this.character.speedY = 5;
             this.hitChicken = true;
             this.character.monitorJumpEnd();
-        };
-    }
-
+        }
+    };
 
     /**
      * Performs a specified action when an enemy chicken dies.
@@ -517,12 +488,11 @@ class World {
      * @return {number} - The index of the enemy chicken that gets plucked.
      */
     chickenDies(enemy) {
-        return (enemy.getsPlucked(this.level.enemies.indexOf(enemy)),
+        return (enemy.chickenDead(this.level.enemies.indexOf(enemy)),
             setTimeout(() => {
                 enemies.splice(this.level.enemies.indexOf(enemy), 1);
             }, 1000));
     };
-
 
     /**
      * A function that causes the chick to die.
@@ -531,39 +501,39 @@ class World {
      * @return {undefined} - This function does not return a value.
      */
     chickDies(enemy) {
-        return (enemy.getsStompedOn(this.level.enemies.indexOf(enemy)),
+        return (enemy.chickDead(this.level.enemies.indexOf(enemy)),
             setTimeout(() => {
                 enemies.splice(this.level.enemies.indexOf(enemy), 1);
             }, 1000));
     };
 
-
     /**
-     * Resets the position of any surviving enemies that have moved off the screen.
+     * Resets the position of any surviving enemies and clouds that have moved off the screen.
      *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
+     * @return {void}
      */
-    resetSurvingEnemies() {
-        this.level.enemies.forEach((e) => {
-            if (e.x + e.width < 0) { e.x = 2800 }
-        })
-        this.level.clouds.forEach((e) => {
-            if (e.x + e.width < 0) { e.x = 2800 }
-        })
+    resetSurvivingEntities() {
+        const resetPosition = (entity) => {
+            if (entity.x + entity.width < 0) {
+                entity.x = 2800;
+            }
+        };
+
+        [...this.level.enemies, ...this.level.clouds].forEach(resetPosition);
     };
 
-
     /**
-     * Adds a new splash to the splashes array, breaks the given bottle, removes it from the throwableObjects array, and adds a new throwable object to the throwableObjects array.
+     * Adds a new splash to the splashes array, breaks the given bottle,
+     * removes it from the throwableObjects array, and adds a new throwable object.
      *
      * @param {Bottle} bottle - The bottle object to break.
      * @return {void} This function does not return anything.
      */
     bottleBreak(bottle) {
-        this.splashes.push(new Splash(bottle.x + 10, bottle.y + 30));
+        const { x, y } = bottle;
+        this.splashes.push(new Splash(x + 10, y + 30));
         bottle.break();
-        this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
+        this.throwableObjects = this.throwableObjects.filter(obj => obj !== bottle);
         this.throwableObjects.push(new ThrowableObject());
     };
-}
+};

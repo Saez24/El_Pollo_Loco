@@ -32,11 +32,11 @@ function gameOverlay() {
         gameOver.innerHTML = /*html*/`
             <div class="menu">
                 <img class="menu-btn" onclick="changeMusic('game-music-btn')" id="game-music-btn"
-                    src="assets/img/10_interaction/music.png" alt="">
+                    src="assets/img/10_icons/music.png" alt="">
                 <img class="menu-btn" onclick="changeSound('game-sound-btn')" id="game-sound-btn"
-                    src="assets/img/10_interaction/speaker.png" alt="">
+                    src="assets/img/10_icons/speaker.png" alt="">
                 <img class="menu-btn" onclick="fullScreen(),restartGame()" id="full_screen-btn"
-                    src="assets/img/10_interaction/fullScreen.png" alt="">
+                    src="assets/img/10_icons/fullScreen.png" alt="">
             </div>
             <div onclick="restartGame()" class="restart">RESTART</div>
         `;

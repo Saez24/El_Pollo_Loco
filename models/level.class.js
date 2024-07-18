@@ -12,5 +12,5 @@ class Level {
         this.clouds = clouds;
         this.coins = coins;
         this.bottles = bottles;
-    }
-}
+    };
+};

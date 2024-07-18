@@ -19,7 +19,6 @@ class ThrowableObject extends MovableObject {
         this.height = 50;
     };
 
-
     /**
      * Throws an object with the given coordinates.
      *
@@ -29,12 +28,13 @@ class ThrowableObject extends MovableObject {
     throw(x, y) {
         this.x = x;
         this.y = y;
-        this.speedY = 23;
+        this.speedY = 18;
         this.speedX = 10;
         this.applyGravity();
-        this.throwId = interval.call(this, this.throwInterval, 1000 / 60)
+        this.throwId = setInterval(() => {
+            this.throwInterval();
+        }, 1000 / 60);
     };
-
 
     /**
      * Updates the position and rotation of the object on a regular interval.
@@ -44,13 +44,12 @@ class ThrowableObject extends MovableObject {
      */
     throwInterval() {
         this.x += this.speedX;
-        this.updateRotation();
+        this.bottleRotation();
         if (this.y >= this.default_positionY || this.broken) {
             this.x += 0
             clearInterval(this.throwId);
         }
     };
-
 
     /**
      * Bottle break sound.
@@ -66,14 +65,13 @@ class ThrowableObject extends MovableObject {
         }, 60);
     };
 
-
     /**
      * Update the rotation of the bottle.
      *
      * @param {type} paramName - description of parameter
      * @return {type} description of return value
      */
-    updateRotation() {
+    bottleRotation() {
         this.offset = {
             width: 20,
             height: 45,
@@ -82,4 +80,4 @@ class ThrowableObject extends MovableObject {
         }
         this.rotation += this.rotationSpeed;
     };
-}
+};

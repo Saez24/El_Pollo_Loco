@@ -4,16 +4,16 @@ class Character extends MovableObject {
     y = 200;
     healthBar;
     health_percentage;
+    canThrow = true;
+    isJumping = false;
+    isTrowing = false;
+    isSleeping = false;
     default_positionY = 200;
     idleTimeout;
     hitChicken = false;
     sleepTimeout = 4000;
     jumpImage = 0;
     deadId;
-    canThrow = true;
-    isJumping = false;
-    isTrowing = false;
-    isSleeping = false;
     walking_sound = new Audio("assets/audio/walk.mp3");
     jumping_sound = new Audio("assets/audio/jump.mp3");
     throwing_sound = new Audio("assets/audio/bottle_trow.mp3");
@@ -27,6 +27,19 @@ class Character extends MovableObject {
         "assets/img/2_character_pepe/2_walk/W-24.png",
         "assets/img/2_character_pepe/2_walk/W-25.png",
         "assets/img/2_character_pepe/2_walk/W-26.png"
+    ];
+
+    IMAGES_SLEEPING = [
+        "assets/img/2_character_pepe/1_idle/long_idle/I-11.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-12.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-13.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-14.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-15.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-16.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-17.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-18.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-19.png",
+        "assets/img/2_character_pepe/1_idle/long_idle/I-20.png"
     ];
 
     IMAGES_JUMPING = [
@@ -57,19 +70,6 @@ class Character extends MovableObject {
         "assets/img/2_character_pepe/4_hurt/H-43.png"
     ];
 
-    IMAGES_SLEEPING = [
-        "assets/img/2_character_pepe/1_idle/long_idle/I-11.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-12.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-13.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-14.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-15.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-16.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-17.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-18.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-19.png",
-        "assets/img/2_character_pepe/1_idle/long_idle/I-20.png"
-    ];
-
     /**
      * Initializes the object by loading images, animating, applying gravity, and setting the speed.
      *
@@ -80,10 +80,10 @@ class Character extends MovableObject {
         super();
         this.loadImage("assets/img/2_character_pepe/2_walk/W-21.png");
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_SLEEPING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_SLEEPING);
         this.animate();
         this.applyGravity();
         this.refreshIdleTimer();
@@ -110,10 +110,39 @@ class Character extends MovableObject {
      * @return {type} description of return value
      */
     animate() {
-        interval.call(this, this.sleeping, 1000 / 3);
-        interval.call(this, this.processKeyBindings, 1000 / 60);
-        interval.call(this, this.updateMovement, 80);
-        this.monitorCharacterHealth();
+        setInterval(() => {
+            this.sleeping();
+        }, 1000 / 3);
+        setInterval(() => {
+            this.processKeyBindings();
+        }, 1000 / 60);
+        setInterval(() => {
+            this.updateMovement();
+        }, 80);
+        this.checkCharacterHealth();
+    };
+
+    /**
+    * Monitors the character's health.
+    * If the energy drops below or equal to 10, it prepares for death and handles related actions.
+    *
+    * @return {undefined} There is no return value.
+    */
+    checkCharacterHealth() {
+        const scanDeath = setInterval(() => this.checkHealth(scanDeath), 60);
+    };
+
+    /**
+     * Checks the character's health.
+     * If the energy is low, it triggers the death handling process.
+     *
+     * @param {number} scanDeath - The interval ID to clear when needed.
+     * @return {undefined} There is no return value.
+     */
+    checkHealth(scanDeath) {
+        if (this.energy <= 10) {
+            this.handleDeath(scanDeath);
+        }
     };
 
     /**
@@ -129,6 +158,17 @@ class Character extends MovableObject {
                 if (sound == true) this.sleeping_sound.play();
             }
         }
+    };
+
+    /**
+     * Marks the character as sleeping.
+     *
+     * This function sets the `isSleeping` flag to true.
+     *
+     * @return {void} This function does not return a value.
+     */
+    markAsSleeping() {
+        this.isSleeping = true;
     };
 
     /**
@@ -182,7 +222,7 @@ class Character extends MovableObject {
     handleKeyThrow() {
         if (this.world.keyboard.KEY_THROW) {
             this.refreshIdleTimer();
-            if (this.throwBottlesWhileFacingForward()) {
+            if (this.throwBottlesWhileLookingForward()) {
                 this.throw();
                 if (sound == true) this.throwing_sound.play()
             }
@@ -194,7 +234,7 @@ class Character extends MovableObject {
     *
     * @return {boolean} True if the entity can throw bottles and is looking forward, false otherwise.
     */
-    throwBottlesWhileFacingForward() {
+    throwBottlesWhileLookingForward() {
         const hasBottles = this.world.throwableObjects.length > 0;
         const isLookingForward = !this.otherDirection;
         const canThrowBottles = this.canThrow && !this.isTrowing;
@@ -203,17 +243,17 @@ class Character extends MovableObject {
     };
 
     /**
- * Checks if the character is walking to the left.
- *
- * @return {boolean} - Returns true if the character is walking to the left.
- */
+    * Checks if the character is walking to the left.
+    *
+    * @return {boolean} - Returns true if the character is walking to the left.
+    */
     walkingLeft() {
         this.refreshIdleTimer();
         this.moveLeft();
         this.takeStatuscharacterBars(-40);
         this.otherDirection = true;
         return true; // Assuming the function should return true
-    }
+    };
 
     /**
      * Checks if the character is walking to the right.
@@ -226,7 +266,7 @@ class Character extends MovableObject {
         this.takeStatuscharacterBars(-40);
         this.isSleeping = false;
         return true; // Assuming the function should return true
-    }
+    };
 
     /**
      * Sets the camera position and offset based on the current object position.
@@ -243,29 +283,6 @@ class Character extends MovableObject {
                 y: this.y + 100
             }
         );
-    };
-
-    /**
-    * Monitors the character's health.
-    * If the energy drops below or equal to 10, it prepares for death and handles related actions.
-    *
-    * @return {undefined} There is no return value.
-    */
-    monitorCharacterHealth() {
-        const scanDeath = setInterval(() => this.checkHealth(scanDeath), 60);
-    };
-
-    /**
-     * Checks the character's health.
-     * If the energy is low, it triggers the death handling process.
-     *
-     * @param {number} scanDeath - The interval ID to clear when needed.
-     * @return {undefined} There is no return value.
-     */
-    checkHealth(scanDeath) {
-        if (this.energy <= 10) {
-            this.handleDeath(scanDeath);
-        }
     };
 
     /**
@@ -300,6 +317,7 @@ class Character extends MovableObject {
     prepareForDeath() {
         this.isFadingOut = true;
         characterAlive = false;
+        this.stopMusic(chicken_walk);
     };
 
     /**
@@ -457,7 +475,7 @@ class Character extends MovableObject {
      * @param {number} x - The offset for the character bars.
      */
     takeStatuscharacterBars(x) {
-        this.world.bossBar.x = this.x + 440
+        this.world.bossHealthBar.x = this.x + 440
         this.world.characterBars.forEach(element => {
             element.x = this.x + x
         });
@@ -509,16 +527,5 @@ class Character extends MovableObject {
         this.sleeping_sound.pause();
         this.sleeping_sound.currentTime = 0;
         this.beginIdleTimer();
-    };
-
-    /**
-     * Marks the character as sleeping.
-     *
-     * This function sets the `isSleeping` flag to true.
-     *
-     * @return {void} This function does not return a value.
-     */
-    markAsSleeping() {
-        this.isSleeping = true;
     };
 };

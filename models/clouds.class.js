@@ -13,5 +13,5 @@ class Clouds extends MovableObject {
         this.width = 300;
         this.height = 200;
         this.animate();
-    }
-}
+    };
+};

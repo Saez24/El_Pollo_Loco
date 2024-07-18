@@ -14,12 +14,11 @@ class DrawableObject {
         y: 0
     };
 
-
     /**
-    * Loads images from an array of paths and caches them.
-   *
-   * @param {Array} arr - An array of image paths.
-   */
+     * Loads images from an array of paths and caches them.
+     *
+     * @param {Array} arr - An array of image paths.
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -28,17 +27,15 @@ class DrawableObject {
         })
     };
 
-
     /**
      * Loads an image from a given path and caches it.
-    *
-    * @param {string} path - The path of the image to load.
-    */
+     *
+     * @param {string} path - The path of the image to load.
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     };
-
 
     /**
      * Draw the image on the canvas context.
@@ -49,5 +46,4 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
     };
-
-}
+};
