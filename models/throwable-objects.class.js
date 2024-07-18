@@ -25,7 +25,7 @@ class ThrowableObject extends MovableObject {
      * @param {number} x - the x-coordinate of the object
      * @param {number} y - the y-coordinate of the object
      */
-    throw(x, y) {
+    throwBottle(x, y) {
         this.x = x;
         this.y = y;
         this.speedY = 18;

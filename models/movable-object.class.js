@@ -79,9 +79,7 @@ class MovableObject extends DrawableObject {
      * @return {type} description of return value
      */
     applyGravity() {
-        this.gravityId = setInterval(() => {
-            this.gravityInterval();
-        }, 1000 / 60);
+        this.gravityId = interval.call(this, this.gravityInterval, 1000 / 60)
     };
 
     /**

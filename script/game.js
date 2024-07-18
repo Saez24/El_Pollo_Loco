@@ -23,16 +23,30 @@ function init() {
     hideStartScreen();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    addEnemyAnimationIntervals();
+    pushExtraIntervals();
 };
 
 /**
- * Adds animation intervals of all enemies in the world to the intervalIds array.
+ * Pushes the animation intervals of all enemies in the world to the intervalIds array.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
  */
-function addEnemyAnimationIntervals() {
-    world.level.enemies.forEach((enemy) => {
-        intervalIds.push(enemy.animation_interval);
-    });
+function pushExtraIntervals() {
+    world.level.enemies.forEach((e) => { intervalIds.push(e.animation_interval) })
+};
+
+/**
+ * Executes the given function at regular intervals and stores the interval ID.
+ *
+ * @param {function} func - The function to be executed at regular intervals.
+ * @param {number} time - The time interval in milliseconds between each execution.
+ * @return {void} This function does not return a value.
+ */
+function interval(func, time) {
+    let boundFunc = func.bind(this);
+    let intervalId = setInterval(boundFunc, time);
+    intervalIds.push(intervalId);
 };
 
 /**

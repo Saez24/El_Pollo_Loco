@@ -487,7 +487,7 @@ class Character extends MovableObject {
      * @return {undefined} This function does not have a return value.
      */
     throw() {
-        this.world.throwableObjects[0].throw(this.x + 30, this.y + 100)
+        this.world.throwableObjects[0].throwBottle(this.x + 30, this.y + 100)
         this.world.characterBars[1].percentage += 20
         this.world.characterBars[1].setPercentage(this.world.characterBars[1].percentage)
         this.isTrowing = true;
