@@ -14,7 +14,7 @@ class Character extends MovableObject {
     isJumping = false;
     isTrowing = false;
     isSleeping = false;
-    walking_sound = new Audio("assets/audio/step.mp3");
+    walking_sound = new Audio("assets/audio/walk.mp3");
     jumping_sound = new Audio("assets/audio/jump.mp3");
     throwing_sound = new Audio("assets/audio/bottle_trow.mp3");
     sleeping_sound = new Audio("assets/audio/sleeping.mp3");
@@ -138,7 +138,7 @@ class Character extends MovableObject {
      */
     handleKeyRight() {
         if (this.world.keyboard.KEY_RIGHT && this.x + this.width / 2 < this.world.level.level_limit) {
-            this.isWalkingRight();
+            this.walkingRight();
             if (this.y == this.default_positionY) {
                 if (sound == true) this.walking_sound.play();
             }
@@ -154,7 +154,7 @@ class Character extends MovableObject {
      */
     handleKeyLeft() {
         if (this.world.keyboard.KEY_LEFT && this.x > 0 + this.width / 2) {
-            this.isWalkingLeft();
+            this.walkingLeft();
             if (this.y == this.default_positionY) {
                 if (sound == true) this.walking_sound.play()
             };
@@ -182,7 +182,7 @@ class Character extends MovableObject {
     handleKeyThrow() {
         if (this.world.keyboard.KEY_THROW) {
             this.refreshIdleTimer();
-            if (this.canThrowBottlesWhileFacingForward()) {
+            if (this.throwBottlesWhileFacingForward()) {
                 this.throw();
                 if (sound == true) this.throwing_sound.play()
             }
@@ -194,7 +194,7 @@ class Character extends MovableObject {
     *
     * @return {boolean} True if the entity can throw bottles and is looking forward, false otherwise.
     */
-    canThrowBottlesWhileFacingForward() {
+    throwBottlesWhileFacingForward() {
         const hasBottles = this.world.throwableObjects.length > 0;
         const isLookingForward = !this.otherDirection;
         const canThrowBottles = this.canThrow && !this.isTrowing;
@@ -203,32 +203,30 @@ class Character extends MovableObject {
     };
 
     /**
-     * Determines if the character is walking left.
-     *
-     * This function resets the idle timer, moves the character to the left,
-     * decreases the status character bars by 40, and sets the otherDirection
-     * property to true.
-     *
-     * @return {boolean} - Returns true if the character is walking left, false otherwise.
-     */
-    isWalkingLeft() {
-        return this.refreshIdleTimer(),
-            this.moveLeft(),
-            this.takeStatuscharacterBars(-40),
-            this.otherDirection = true
-    };
+ * Checks if the character is walking to the left.
+ *
+ * @return {boolean} - Returns true if the character is walking to the left.
+ */
+    walkingLeft() {
+        this.refreshIdleTimer();
+        this.moveLeft();
+        this.takeStatuscharacterBars(-40);
+        this.otherDirection = true;
+        return true; // Assuming the function should return true
+    }
 
     /**
      * Checks if the character is walking to the right.
      *
-     * @return {boolean} Returns true if the character is walking to the right.
+     * @return {boolean} - Returns true if the character is walking to the right.
      */
-    isWalkingRight() {
-        return this.refreshIdleTimer(),
-            this.moveRight(),
-            this.takeStatuscharacterBars(-40),
-            this.isSleeping = false;
-    };
+    walkingRight() {
+        this.refreshIdleTimer();
+        this.moveRight();
+        this.takeStatuscharacterBars(-40);
+        this.isSleeping = false;
+        return true; // Assuming the function should return true
+    }
 
     /**
      * Sets the camera position and offset based on the current object position.
@@ -265,7 +263,7 @@ class Character extends MovableObject {
      * @return {undefined} There is no return value.
      */
     checkHealth(scanDeath) {
-        if (this.energie <= 10) {
+        if (this.energy <= 10) {
             this.handleDeath(scanDeath);
         }
     };
@@ -447,7 +445,6 @@ class Character extends MovableObject {
             if (this.hitChicken) {
                 return this.img === this.imageCache[this.IMAGES_JUMPING[0]];
             }
-
             const i = this.jumpImage % images.length;
             this.img = this.imageCache[images[i]];
             this.jumpImage++;

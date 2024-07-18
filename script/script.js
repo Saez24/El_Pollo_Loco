@@ -11,7 +11,10 @@ function hideStartScreen() {
     document.getElementsByClassName('canvas')[0].classList.remove('d-none');
     if (music == true) {
         backgroundMusic.play();
+        backgroundMusic.volume = 0.1;
         backgroundMusic.loop = true;
+        chicken_walk.play();
+        chicken_walk.loop = true;
     }
 };
 
@@ -95,6 +98,9 @@ function changeMusic(id) {
         backgroundMusic.pause();
         backgroundMusic.currentTime = 0;
         backgroundMusic.loop = false;
+        chicken_walk.pause();
+        chicken_walk.currentTime = 0;
+        chicken_walk.loop = false;
         music = false;
         btn.src = "assets/img/10_interaction/noMusic.png";
     } else {

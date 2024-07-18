@@ -21,7 +21,7 @@ class World {
     coin_sound = new Audio("assets/audio/collect_coin.mp3");
     bottle_sound = new Audio("assets/audio/bottle_put.mp3");
     bossHit_sound = new Audio("assets/audio/bossHit.mp3");
-
+    hit_sound = new Audio("assets/audio/scream.mp3");
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -443,6 +443,7 @@ class World {
         }
         if (this.character.isColliding(this.endBoss)) {
             this.character.isHit();
+            if (sound) this.hit_sound.play();
         };
     };
 
@@ -485,6 +486,7 @@ class World {
                 if (this.character.isJumpingUpon(enemy) && enemy instanceof Chicken) this.differChickenSize(enemy);
             } else if (this.character.isColliding(enemy)) {
                 this.character.isHit();
+                if (sound) this.hit_sound.play();
             };
         })
     };
@@ -498,7 +500,7 @@ class World {
      */
     differChickenSize(enemy) {
         if (enemy instanceof Chick) {
-            this.littleChickDies(enemy)
+            this.chickDies(enemy)
         } else {
             this.chickenDies(enemy);
             this.character.speedY = 5;
@@ -523,12 +525,12 @@ class World {
 
 
     /**
-     * A function that causes the little chick to die.
+     * A function that causes the chick to die.
      *
      * @param {object} enemy - The enemy that caused the little chick to die.
      * @return {undefined} - This function does not return a value.
      */
-    littleChickDies(enemy) {
+    chickDies(enemy) {
         return (enemy.getsStompedOn(this.level.enemies.indexOf(enemy)),
             setTimeout(() => {
                 enemies.splice(this.level.enemies.indexOf(enemy), 1);

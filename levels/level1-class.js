@@ -10,7 +10,7 @@ let bottles = [];
 class LevelInitializer {
     constructor() {
         this.initializeLevel();
-    }
+    };
 
     /**
      * Generates an array of Bottle objects with specified properties.
@@ -32,7 +32,7 @@ class LevelInitializer {
             new Bottle(1900, "assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 30),
             new Bottle(1950, "assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png", 30)
         ];
-    }
+    };
 
     /**
      * Generates an array of Coin objects and fills it with initial values.
@@ -56,7 +56,7 @@ class LevelInitializer {
             new Coin(1900, 200),
             new Coin(1950, 150)
         ];
-    }
+    };
 
     /**
      * Generates the background objects array and fills it with initial values.
@@ -69,7 +69,7 @@ class LevelInitializer {
             background.push(new Background(720 * i, this.y - 1, 2));
             background.push(new Background(720 * i, this.y - 1, 1));
         }
-    }
+    };
 
     /**
      * Generates an array of cloud objects and returns it.
@@ -82,7 +82,7 @@ class LevelInitializer {
             cloud.push(new Clouds(Math.random() * (700) + (i * 720), Math.random() * 100, 0.2, "assets/img/5_background/layers/4_clouds/2.png"));
         }
         return cloud;
-    }
+    };
 
     /**
      * Generates an array of enemy objects.
@@ -99,7 +99,7 @@ class LevelInitializer {
             enemies.push(new Chicken(i));
             enemies.push(new Chick(i));
         }
-    }
+    };
 
     /**
      * Fills the level with coins, background objects, clouds, enemies, and bottles.
@@ -110,8 +110,8 @@ class LevelInitializer {
         this.generateCloudArray();
         this.generateEnemyArray();
         this.generateBottleArray();
-    }
-}
+    };
+};
 
 // Create an instance of LevelInitializer to initialize the level
 const levelInitializer = new LevelInitializer();
@@ -133,7 +133,7 @@ function resetLevel(enemies, background, cloud, coins, bottles) {
         coins,
         bottles
     );
-}
+};
 
 let level1 = new Level(
     enemies,

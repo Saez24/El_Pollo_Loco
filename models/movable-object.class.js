@@ -1,7 +1,7 @@
 class MovableObject extends DrawableObject {
     otherDirection = false;
     accelearion = 1;
-    energie = 100;
+    energy = 100;
     gotHurt = false;
     speedY = 0;
     gravityId;
@@ -185,13 +185,13 @@ class MovableObject extends DrawableObject {
         if (this.gotHurt) {
             return;
         } else if (!this.gotHurt) {
-            this.health_percentage = this.energie -= 20;
+            this.health_percentage = this.energy -= 20;
             this.gotHurt = true;
             this.dmgAnimation();
             if (this instanceof Character) {
                 this.refreshIdleTimer();
             }
-            if (this.energie <= 0) {
+            if (this.energy <= 0) {
                 this.healthBar.setPercentage(0);
             }
         }
@@ -217,7 +217,7 @@ class MovableObject extends DrawableObject {
      * @return {boolean} Returns true if the object's energy is less than or equal to 0, false otherwise.
      */
     isDead() {
-        return this.energie <= 0;
+        return this.energy <= 0;
     };
 
 
@@ -245,9 +245,9 @@ class MovableObject extends DrawableObject {
             if (this.timepassed(this.lastHit)) {
                 this.readyToTakeDamage();
                 if (this instanceof Endboss) {
-                    if (this.energie == 160) this.attack();
-                    else if (this.energie == 99) this.attack();
-                    else if (this.energie == 38) this.attack();
+                    if (this.energy == 160) this.attack();
+                    else if (this.energy == 99) this.attack();
+                    else if (this.energy == 38) this.attack();
                     else { this.watchMadAtCharacter() };
                 }
             }
@@ -286,7 +286,7 @@ class MovableObject extends DrawableObject {
      * @return {type} description of return value
      */
     attack() {
-        this.energie -= 1;
+        this.energy -= 1;
         this.clearAllIntervals();
         this.jump();
 

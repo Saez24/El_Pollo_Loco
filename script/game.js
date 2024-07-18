@@ -6,6 +6,7 @@ let bossAlive = true;
 let keyboard = new Keyboard();
 let intervalIds = [];
 let backgroundMusic = new Audio("assets/audio/backgroundMusic.mp3");
+let chicken_walk = new Audio("assets/audio/chicken.mp3");
 let intro_music = new Audio("assets/audio/bossIntro.mp3");
 let winning_sound = new Audio("assets/audio/win.mp3");
 let sound = true;

@@ -9,7 +9,7 @@ class Background extends MovableObject {
     constructor(position_x, y, layer) {
         super(position_x, y);
         this.setPropertiesByLayer(layer);
-    }
+    };
 
     /**
      * Sets properties (image, width, height, y-position) based on the layer.
@@ -39,5 +39,5 @@ class Background extends MovableObject {
             default:
                 throw new Error("Invalid layer number");
         }
-    }
-}
+    };
+};

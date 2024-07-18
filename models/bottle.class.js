@@ -21,4 +21,4 @@ class Bottle extends DrawableObject {
             y: 385,
         }
     };
-}
+};
