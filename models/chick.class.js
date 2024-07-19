@@ -43,6 +43,10 @@ class Chick extends Chicken {
         this.speedY = Math.round(Math.random() * 4);
     };
 
+    /**
+    * Handles the death of a chick by stopping animation, resetting offsets, 
+    * playing a sound, and loading the death image.
+    */
     chickDead() {
         clearInterval(this.animation_interval);
         this.offset.width = 0;
