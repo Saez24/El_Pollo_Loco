@@ -40,7 +40,6 @@ class ThrowableObject extends MovableObject {
      * Updates the position and rotation of the object on a regular interval.
      *
      * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     throwInterval() {
         this.x += this.speedX;
@@ -55,7 +54,6 @@ class ThrowableObject extends MovableObject {
      * Bottle break sound.
      *
      * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     break() {
         this.broken = true;
@@ -69,7 +67,6 @@ class ThrowableObject extends MovableObject {
      * Update the rotation of the bottle.
      *
      * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     bottleRotation() {
         this.offset = {

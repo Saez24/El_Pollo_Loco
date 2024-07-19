@@ -29,9 +29,6 @@ class Coin extends MovableObject {
 
     /**
      * Spins the function.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     spin() {
         setInterval(() => {
@@ -41,9 +38,6 @@ class Coin extends MovableObject {
 
     /**
      * Executes the spinning animation.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     spinning() {
         this.playAnimation(this.IMAGE_COIN);

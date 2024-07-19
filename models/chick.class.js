@@ -29,9 +29,6 @@ class Chick extends Chicken {
 
     /**
      * Executes the jumping action.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     jump() {
         setInterval(() => {
@@ -41,20 +38,11 @@ class Chick extends Chicken {
 
     /**
      * Initializes the jumping interval.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     jumpInterval() {
         this.speedY = Math.round(Math.random() * 4);
     };
 
-    /**
-     * Resets the position and animation of the chicken enemy.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
-     */
     chickDead() {
         clearInterval(this.animation_interval);
         this.offset.width = 0;

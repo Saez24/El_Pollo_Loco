@@ -94,8 +94,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes a function when a character arrives.
-     *
-     * @return {undefined} This function does not return a value.
      */
     characterArrives() {
         this.arrive_interval = setInterval(() => {
@@ -113,9 +111,6 @@ class Endboss extends MovableObject {
 
     /**
      * Starts the introduction sequence.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     startIntro() {
         this.changeMusic();
@@ -128,9 +123,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes the intro animation.
-     *
-     * @param {} 
-     * @return {}
      */
     intro() {
         let i = 0;
@@ -143,9 +135,6 @@ class Endboss extends MovableObject {
 
     /**
      * Updates the y position of the health bar until it reaches a certain point.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     bossHealthBarAppears() {
         let interval = setInterval(() => {
@@ -159,14 +148,6 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
     };
 
-    /**
-     * Initializes the `IMAGES_ALERT` variable to `null`, clears the `adjust_interval` interval, 
-     * sets it to `null`, loads the image "assets/img/4_enemie_boss_chicken/2_alert/G12.png",
-     * enables the character to throw, and calls the `jump` function.
-     *
-     * @param {} - No parameters
-     * @return {} - No return value
-     */
     introEnds() {
         this.IMAGES_ALERT = null;
         clearInterval(this.adjust_interval);
@@ -178,8 +159,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes the jump action.
-     *
-     * @return {void} 
      */
     jump() {
         let i = 0;
@@ -195,8 +174,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes the boss attack.
-     *
-     * @return {undefined} No return value.
      */
     bossAttacks() {
         clearInterval(this.attack_interval)
@@ -208,9 +185,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes the landing animation.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     landingAnimation() {
         let i = 0;
@@ -223,8 +197,6 @@ class Endboss extends MovableObject {
 
     /**
     * Monitors a character to determine if it is angry.
-    *
-    * @param {number} interval - The interval at which to monitor the character.
     */
     monitorAngryCharacter(interval) {
         if (interval) {
@@ -242,8 +214,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes a moving animation for the character.
-     *
-     * @return {undefined} This function does not return a value.
      */
     movingAnimation() {
         this.walking_interval = setInterval(() => {
@@ -258,8 +228,6 @@ class Endboss extends MovableObject {
 
     /**
      * Clears the movement intervals.
-     *
-     * @return {undefined} 
      */
     clearMovementInterval() {
         clearInterval(this.walking_interval);
@@ -270,9 +238,6 @@ class Endboss extends MovableObject {
 
     /**
      * Stops the boss's movement and triggers the boss's dies animation.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     bossDies() {
         clearInterval(this.walking_interval);
@@ -305,9 +270,6 @@ class Endboss extends MovableObject {
 
     /**
      * Stops the jump animation and triggers the landing animation.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     jumpEnds() {
         clearInterval(this.jumpX_interval);
@@ -317,8 +279,6 @@ class Endboss extends MovableObject {
 
     /**
      * Animate the dying animation for the given index.
-     *
-     * @param {number} i - The index of the animation.
      */
     animateDying(i) {
         if (i == this.IMAGES_DEAD.length - 1) {
@@ -330,9 +290,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes the dead boss animation.
-     *
-     * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     deadBoss() {
         this.dead_interval = setInterval(() => {
@@ -346,8 +303,6 @@ class Endboss extends MovableObject {
 
     /**
      * Checks if the boss is dead on the ground.
-     *
-     * @return {boolean} Returns true if the boss is dead on the ground, otherwise false.
      */
     deadBossOnGround() {
         return (this.y == this.default_positionY)
@@ -355,8 +310,6 @@ class Endboss extends MovableObject {
 
     /**
      * Executes the final animation.
-     *
-     * @return {void} This function does not return anything.
      */
     finalAnimation() {
         clearInterval(this.dead_interval);
@@ -368,10 +321,6 @@ class Endboss extends MovableObject {
     /**
      * Sets the offset property of the object.
      * The offset is an object that contains the width, height, x, and y values.
-     *
-     * This function does not take any parameters.
-     *
-     * @return {void} This function does not return anything.
      */
     keepOffset() {
         this.offset = {
@@ -384,9 +333,6 @@ class Endboss extends MovableObject {
 
     /**
      * Checks if the pre-jump animation has ended.
-     *
-     * @param {number} i - The index of the image.
-     * @return {boolean} Returns true if the pre-jump animation has ended, false otherwise.
      */
     preJumpAnimationEnds(i) {
         return (i == this.IMAGES_ATTACK.length)
@@ -394,8 +340,6 @@ class Endboss extends MovableObject {
 
     /**
      * Check if the object is touching the ground.
-     *
-     * @return {boolean} true if the object is touching the ground, false otherwise.
      */
     isTouchingGround() {
         return (this.y == this.default_positionY)
@@ -403,20 +347,11 @@ class Endboss extends MovableObject {
 
     /**
      * Checks if the given index is the last index of the array IMAGES_LANDING.
-     *
-     * @param {number} i - The index to be checked.
-     * @return {boolean} Returns true if the index is the last index, otherwise returns false.
      */
     reachedLastAnimationImg(i) {
         return (i == this.IMAGES_LANDING.length - 1)
     };
 
-    /**
-     * Clears all intervals used in the class.
-     * This function clears all intervals used for movement, arrival, engagement,
-     * attack preparation, walking, jumping, and death animation. It sets all
-     * interval variables to null.
-     */
     clearAllIntervals() {
         clearInterval(this.moving_interval);
         this.moving_interval = null;
@@ -434,11 +369,6 @@ class Endboss extends MovableObject {
         this.dead_interval = null;
     };
 
-    /**
-     * Change the current music.
-     *
-     * @return {undefined} No return value
-     */
     changeMusic() {
         this.stopMusic(backgroundMusic)
         this.stopMusic(chicken_walk);
@@ -450,8 +380,6 @@ class Endboss extends MovableObject {
 
     /**
      * Perform necessary actions when the success condition is met.
-     *
-     * @return {undefined} This function does not have a return value.
      */
     success() {
         bossAlive = false;

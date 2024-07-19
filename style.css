@@ -377,6 +377,70 @@ span {
     background: linear-gradient(to top, #6fc48a, #eec644, #4debdb);
 }
 
+.impressum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.impressum h1,
+h2,
+p {
+    position: unset;
+    z-index: 1;
+}
+
+.backtoindex {
+    width: 50px;
+    position: absolute;
+    right: 5%;
+    top: 8%;
+    cursor: pointer;
+}
+
+body {
+    background-image: url("./assets/img/5_background/background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.privacypolice {
+    margin: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.privacypolice h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li {
+    position: unset;
+    z-index: 1;
+}
+
+.polices {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 24px;
+    width: 720px;
+}
+
+.polices a {
+    text-decoration: none;
+    color: #eec644;
+}
+
+.polices :hover {
+    color: #e06427;
+}
+
 @keyframes zoomIn {
     0% {
         transform: scale(0);
@@ -395,6 +459,15 @@ span {
     100% {
         opacity: 1;
     }
+}
+
+.touch-device .keys,
+.touch-device .keys-controls_screen {
+    display: none;
+}
+
+.touch-device .mobile {
+    display: flex;
 }
 
 @media only screen and (max-width: 720px) {
@@ -497,6 +570,13 @@ span {
 
     .settings-mobile {
         display: block;
+    }
+
+    .polices {
+        position: absolute;
+        bottom: 180px;
+        left: 90px;
+        right: 0;
     }
 
     #start_screen-background {

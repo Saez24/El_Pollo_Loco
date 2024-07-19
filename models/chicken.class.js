@@ -31,7 +31,6 @@ class Chicken extends MovableObject {
      * and adjusting the offset if the object is a Chick.
      *
      * @param {type} paramName - description of parameter
-     * @return {type} description of return value
      */
     animate() {
         this.animation_interval = setInterval(() => {
@@ -45,11 +44,6 @@ class Chicken extends MovableObject {
         }, 1000 / 15);
     };
 
-    /**
-     * Generates the function comment for the given function body.
-     *
-     * @return {void} The function does not return a value.
-     */
     chickenOffset() {
         this.offset = {
             width: 50,
@@ -59,12 +53,6 @@ class Chicken extends MovableObject {
         };
     };
 
-    /**
-     * Generates the function comment for the given function body.
-     *
-     * @param {} - no parameters
-     * @return {} - no return value
-     */
     chickOffset() {
         this.offset = {
             width: 25,
@@ -74,9 +62,6 @@ class Chicken extends MovableObject {
         };
     };
 
-    /**
-     * Clears the animation interval, resets the offset values, plays a sound if enabled, and loads a new image.
-     */
     chickenDead() {
         clearInterval(this.animation_interval);
         this.animation_interval = null;

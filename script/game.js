@@ -16,8 +16,6 @@ let mobileControlIds = ["left", "right", "jump", "throw"];
 
 /**
  * Initializes the canvas and sets up the world object.
- *
- * @return {void} This function does not return anything.
  */
 function init() {
     hideStartScreen();
@@ -28,9 +26,6 @@ function init() {
 
 /**
  * Pushes the animation intervals of all enemies in the world to the intervalIds array.
- *
- * @param {type} paramName - description of parameter
- * @return {type} description of return value
  */
 function pushExtraIntervals() {
     world.level.enemies.forEach((e) => { intervalIds.push(e.animation_interval) })
@@ -101,11 +96,15 @@ function initializeKeyUpListener() {
     });
 };
 
+document.addEventListener("DOMContentLoaded", function () {
+    if ('ontouchstart' in document.documentElement) {
+        document.body.classList.add('touch-device');
+    }
+});
+
+
 /**
  * Executes the necessary actions for mobile interaction.
- *
- * @param {type} paramName - description of parameter
- * @return {type} description of return value
  */
 function mobileListener() {
     initializeKeyDownListener();
@@ -181,11 +180,6 @@ function stopGame() {
     gameStopped = true;
 };
 
-/**
- * Restarts the game.
- *
- * @return {undefined} - No return value.
- */
 function restartGame() {
     if (!gameStopped) stopGame();
     canvas = document.getElementById('canvas');
