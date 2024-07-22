@@ -148,6 +148,10 @@ class Endboss extends MovableObject {
         }, 1000 / 60);
     };
 
+    /**
+    * Handles the end of the intro by clearing the alert images and intervals, 
+    * loading a new image, enabling character's throwing ability, and initiating a jump.
+    */
     introEnds() {
         this.IMAGES_ALERT = null;
         clearInterval(this.adjust_interval);
@@ -352,6 +356,9 @@ class Endboss extends MovableObject {
         return (i == this.IMAGES_LANDING.length - 1)
     };
 
+    /**
+    * Clears all active intervals and sets them to null.
+    */
     clearAllIntervals() {
         clearInterval(this.moving_interval);
         this.moving_interval = null;
@@ -368,7 +375,10 @@ class Endboss extends MovableObject {
         clearInterval(this.dead_interval);
         this.dead_interval = null;
     };
-
+    
+    /**
+    * Stops the current background and chicken walk music, then plays intro music if music is enabled.
+    */
     changeMusic() {
         this.stopMusic(backgroundMusic)
         this.stopMusic(chicken_walk);

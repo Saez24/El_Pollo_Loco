@@ -44,6 +44,9 @@ class Chicken extends MovableObject {
         }, 1000 / 15);
     };
 
+    /**
+    * Sets the offset dimensions and position for a chicken.
+    */
     chickenOffset() {
         this.offset = {
             width: 50,
@@ -53,6 +56,9 @@ class Chicken extends MovableObject {
         };
     };
 
+    /**
+    * Sets the offset dimensions and position for a chick.
+    */
     chickOffset() {
         this.offset = {
             width: 25,
@@ -62,6 +68,10 @@ class Chicken extends MovableObject {
         };
     };
 
+    /**
+    * Handles the death of a chicken by stopping animation, resetting offsets, 
+    * playing a sound, and loading the death image.
+    */
     chickenDead() {
         clearInterval(this.animation_interval);
         this.animation_interval = null;

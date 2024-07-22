@@ -113,7 +113,6 @@ class LevelInitializer {
     };
 };
 
-// Create an instance of LevelInitializer to initialize the level
 const levelInitializer = new LevelInitializer();
 
 /**

@@ -115,6 +115,9 @@ class Character extends MovableObject {
         this.updateCamera();
     };
 
+    /**
+    * Starts the animation sequence by setting up intervals for game functions.
+    */
     animate() {
         setInterval(() => {
             this.sleeping();
@@ -146,8 +149,8 @@ class Character extends MovableObject {
     };
 
     /**
- * Makes the character sleep.
- */
+    * Makes the character sleep.
+    */
     sleeping() {
         if (this.isSleeping) {
             if (!this.gotHurt) {
@@ -157,8 +160,7 @@ class Character extends MovableObject {
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
-    }
-
+    };
 
     /**
      * Marks the character as sleeping.

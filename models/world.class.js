@@ -35,6 +35,9 @@ class World {
 
     };
 
+    /**
+    * Sets up the world by linking the character and end boss to the world context and their respective health bars.
+    */
     setWorld() {
         this.character.world = this;
         this.character.healthBar = this.characterBars[0];
@@ -42,6 +45,10 @@ class World {
         this.endBoss.healthBar = this.bossHealthBar;
     };
 
+    /**
+    * Draws the game elements on the canvas by resetting entities, initializing the canvas, adding backgrounds and collectables,
+    * drawing bars, characters, enemies, splashes, and rotating bottles, and then recursively calls itself using requestAnimationFrame.
+    */
     draw() {
         this.resetSurvivingEntities();
         this.initializeCanvas();
@@ -68,6 +75,9 @@ class World {
         this.ctx.globalAlpha = this.globalAlpha;
     };
 
+    /**
+    * Adds background objects, clouds, coins, and bottles to the map array from the current level.
+    */
     addBackgroundsAndCollectables() {
         const { backgroundObjects, clouds, coins, bottles } = this.level;
         this.addToMapArray(backgroundObjects);
@@ -76,6 +86,9 @@ class World {
         this.addToMapArray(bottles);
     };
 
+    /**
+    * Adds character bars to the map array and the boss health bar to the map.
+    */
     addBarsToCanvas() {
         this.addToMapArray(this.characterBars);
         this.addToMap(this.bossHealthBar);
@@ -147,6 +160,9 @@ class World {
         this.ctx.globalAlpha = 1;
     };
 
+    /**
+    * Draws the rotating bottle on the canvas if it exists and is not broken.
+    */
     drawRotatingBottle() {
         this.ctx.save();
         if (this.throwableObjects[0]) {
@@ -218,6 +234,9 @@ class World {
         ctx.translate(-(x + width / 2), -(y + height / 2));
     };
 
+    /**
+    * Checks for various collisions: coin, bottle, bottle-enemy, enemy, and end boss collisions.
+    */
     checkCollisions() {
         this.coinCollision();
         this.bottleCollection();
@@ -278,6 +297,10 @@ class World {
         }, 10);
     };
 
+    /**
+    * Collects bottles if the character collides with them and there is space for more throwable objects.
+    * Clears the bottle from the canvas, plays a sound, adds a new throwable object, and updates the character's health bar.
+    */
     collectBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle) && this.throwableObjects.length < 5) {
@@ -315,11 +338,23 @@ class World {
         }
     };
 
+    /**
+    * Handles a chicken hit by breaking the bottle and causing the chicken to die.
+    * 
+    * @param {ThrowableObject} bottle - The bottle that hits the chicken.
+    * @param {Enemy} enemy - The chicken (enemy) being hit.
+    */
     handleChickenHit(bottle, enemy) {
         this.bottleBreak(bottle);
         this.chickenDies(enemy);
     };
 
+    /**
+    * Handles a boss hit by breaking the bottle, making the boss register the hit, 
+    * and playing the boss hit sound.
+    * 
+    * @param {ThrowableObject} bottle - The bottle that hits the boss.
+    */
     handleBossHit(bottle) {
         this.bottleBreak(bottle);
         this.endBoss.isHit();
@@ -357,6 +392,9 @@ class World {
         return (this.endBoss.offset.x + this.endBoss.offset.width < this.character.x);
     };
 
+    /**
+    * Sets up an interval to handle character-enemy interactions.
+    */
     enemyCollision() {
         setInterval(() => {
             this.handleCharacterEnemyInteractions();
@@ -394,6 +432,11 @@ class World {
         }
     };
 
+    /**
+    * Handles the death of a chicken enemy by invoking its death method and removing it from the enemies list after a delay.
+    * 
+    * @param {Enemy} enemy - The chicken enemy that dies.
+    */
     chickenDies(enemy) {
         return (enemy.chickenDead(this.level.enemies.indexOf(enemy)),
             setTimeout(() => {
@@ -401,6 +444,11 @@ class World {
             }, 1000));
     };
 
+    /**
+    * Handles the death of a chick enemy by invoking its death method and removing it from the enemies list after a delay.
+    * 
+    * @param {Enemy} enemy - The chick enemy that dies.
+    */
     chickDies(enemy) {
         return (enemy.chickDead(this.level.enemies.indexOf(enemy)),
             setTimeout(() => {
@@ -421,6 +469,12 @@ class World {
         [...this.level.enemies, ...this.level.clouds].forEach(resetPosition);
     };
 
+    /**
+    * Handles the breaking of a bottle by creating a splash effect, breaking the bottle, 
+    * removing it from the throwable objects list, and adding a new throwable object.
+    * 
+    * @param {ThrowableObject} bottle - The bottle that is being broken.
+    */
     bottleBreak(bottle) {
         const { x, y } = bottle;
         this.splashes.push(new Splash(x + 10, y + 30));

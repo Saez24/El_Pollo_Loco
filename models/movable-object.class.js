@@ -155,16 +155,25 @@ class MovableObject extends DrawableObject {
         }
     };
 
+    /**
+    * Stops the given music by pausing it, resetting its current time, and disabling looping.
+    * 
+    * @param {HTMLAudioElement} music - The music to be stopped.
+    */
     stopMusic(music) {
         music.pause();
         music.currentTime = 0;
         music.loop = false;
     };
 
+    /**
+    * Checks if the character is dead based on their energy level.
+    * 
+    * @returns {boolean} True if the character's energy is 0 or less, otherwise false.
+    */
     isDead() {
         return this.energy <= 0;
     };
-
 
     /**
      * Triggers the damage response animation if the object is not dead.
@@ -194,6 +203,9 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     };
 
+    /**
+    * Refreshes the health bar by playing the hurt animation and updating the health bar percentage.
+    */
     refreshHealthbar() {
         this.playAnimation(this.IMAGES_HURT);
         this.healthBar.setPercentage(this.health_percentage);
@@ -207,11 +219,13 @@ class MovableObject extends DrawableObject {
         this.gotHurt = false;
     };
 
+    /**
+    * Performs an attack by reducing energy, clearing all intervals, and initiating a jump.
+    */
     attack() {
         this.energy -= 1;
         this.clearAllIntervals();
         this.jump();
-
     };
 
     /**
