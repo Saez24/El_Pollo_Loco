@@ -29,7 +29,7 @@ This project is a side-scrolling platformer built with **HTML**, **CSS**, and **
 - Encapsulation of behavior and properties
 - Modular, maintainable code architecture
 
-## How to Play
+## 🛠️ How to Play
 
 ```bash
 
@@ -45,4 +45,5 @@ Open index.html in your browser – no installation required!
 Controls:
 
 ⬅️➡️ Arrow keys – Move left/right
+
 ⬆️ or Space – Jump
